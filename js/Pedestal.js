@@ -1,8 +1,8 @@
 var pedestal = [1, '../model/peddestal/', 'peddestal.mtl', 'peddestal.obj', '../model/peddestal/peddestalTex.png', new THREE.Vector3(0.3, 0.17, 0.3)];
-var botte = [1.6, '../model/botte/', 'boots.mtl', 'boots.obj', '../model/botte/bootsTex.png', new THREE.Vector3(0.1, 0.1, 0.1), 1];
+var botte = [1.6, '../model/botte/', 'boots.mtl', 'boots.obj', '../model/botte/bootsTex.png', new THREE.Vector3(0.1, 0.1, 0.1)];
 var brasero = [1, '../model/brasero/', 'brasero.mtl', 'brasero.obj', '../model/brasero/braseroTex.png', new THREE.Vector3(0.3, 0.3, 0.3)];
-var cape = [2, '../model/cape/', 'cape.mtl', 'cape.obj', '../model/cape/capeTex.png', new THREE.Vector3(0.13, 0.17, 0.13), 1, 2];
-var shield = [2, '../model/shield/', 'shield.mtl', 'shield.obj', '../model/shield/shieldText.png', new THREE.Vector3(0.05, 0.05, 0.05), 1];
+var cape = [2, '../model/cape/', 'cape.mtl', 'cape.obj', '../model/cape/capeTex.png', new THREE.Vector3(0.13, 0.17, 0.13)];
+var shield = [2, '../model/shield/', 'shield.mtl', 'shield.obj', '../model/shield/shieldText.png', new THREE.Vector3(0.05, 0.05, 0.05)];
 
 var toLoad = [pedestal, botte, brasero, cape, shield];
 var Modele = [];
@@ -11,7 +11,7 @@ var toBuild = [];
 function preload() {
     for (var i = 0; i < toLoad.length; i++) {
         var temp = toLoad[i];
-        loadObj(0, temp[0], 0, temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7]);
+        loadObj(0, temp[0], 0, temp[1], temp[2], temp[3], temp[4], temp[5]);
     }
 }
 
@@ -26,6 +26,24 @@ class Pedestal extends THREE.Group {
         this.active = true;
         this.name = type;
         this.built = false;
+
+        var spotLight = new THREE.SpotLight(0xffffff, 0.5);
+        spotLight.position.set(x, 4, z);
+        spotLight.target.position.set(x, 0, z);
+        spotLight.target.updateMatrixWorld();
+
+        spotLight.penumbra = 1;
+        spotLight.castShadow = true;
+
+        spotLight.shadow.mapSize.width = 1024;
+        spotLight.shadow.mapSize.height = 1024;
+
+        spotLight.shadow.camera.near = 0.1;
+        spotLight.shadow.camera.far = 10;
+        spotLight.shadow.camera.fov = 20;
+        this.add(spotLight);
+
+
         if (this.name == "PIncognito") {
             var spriteMap = new THREE.TextureLoader().load(img);
             var spriteMaterial = new THREE.SpriteMaterial({
@@ -87,13 +105,10 @@ class Pedestal extends THREE.Group {
     }
 
     getMesh() {
-
-
         for (var i = 0; i < this.ttb.length; i++) {
             // console.log(Modele[this.ttb[i]+5]);
             var crttype = this.ttb[i];
             if (typeof Modele[crttype] !== 'undefined') {
-                console.log("a");
                 var mesh = Modele[crttype].clone();
                 switch (crttype) {
                     case 'peddestal':
@@ -119,7 +134,6 @@ class Pedestal extends THREE.Group {
                 this.ttb.splice(i, 1);
                 i--;
                 this.add(mesh);
-                console.log(this.type);
             }
             if (this.ttb.length == 0) {
                 scene.add(this);
@@ -131,7 +145,7 @@ class Pedestal extends THREE.Group {
 
 }
 
-function loadObj(x, y, z, path, mtl, obj, tex, Scale, log, transl) {
+function loadObj(x, y, z, path, mtl, obj, tex, Scale) {
     THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader());
     new THREE.MTLLoader().setPath(path).load(mtl, function (materials) {
         materials.preload();
@@ -151,22 +165,16 @@ function loadObj(x, y, z, path, mtl, obj, tex, Scale, log, transl) {
             mat.map = new THREE.TextureLoader().load(tex);
             //mat.color.set(0xffffff);
 
-            if (log) {
-                //idRotate.push(mesh.id);
-            }
-            if (transl) {
-                //mesh.geometry.translate(0, 0, transl);
-            }
             var str = obj.substring(0, obj.indexOf("."));
             Modele[str] = mesh.clone();
             //scene.add(object);
         }, onProgress, onError);
     });
     var onProgress = function (xhr) {
-        if (xhr.lengthComputable) {
-            var percentComplete = xhr.loaded / xhr.total * 100;
-            console.log(Math.round(percentComplete, 2) + '% chargé');
-        }
+        // if (xhr.lengthComputable) {
+        //     var percentComplete = xhr.loaded / xhr.total * 100;
+        //     console.log(Math.round(percentComplete, 2) + '% chargé');
+        // }
     };
     var onError = function (error) {
         console.log("Erreur : " + error.target);
