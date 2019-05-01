@@ -193,33 +193,41 @@ function clearPath() {
 	var intersects = raycaster.intersectObjects(collision);
 	if (intersects.length > 0) {
 		var temp = intersects[0]
-		console.log(temp);
+		//console.log(temp);
 
-		if (temp.object.name === "Mur")
+		if (temp.object.name == "Mur") {
 			if (temp.distance < Joueurs[crtJoueur].speed)
 				if (Joueurs[crtJoueur].speed == 2 && temp.distance > 1)
 					return 1;
 				else return 0;
-
-		else if (temp.object.name == "LMur") {
-			Joueurs[crtJoueur].position.set(-Joueurs[crtJoueur].position.x, Joueurs[crtJoueur].position.y, Joueurs[crtJoueur].position.z);
-			return 0;
+		} else if (temp.object.name == "LMur") {
+			if (temp.distance < Joueurs[crtJoueur].speed) {
+				if (Joueurs[crtJoueur].speed == 2 && temp.distance > 1)
+					return 1;
+				else
+					Joueurs[crtJoueur].position.set(Joueurs[crtJoueur].position.x, Joueurs[crtJoueur].position.y, -Joueurs[crtJoueur].position.z);
+				return 0;
+			}
 		} else if (temp.object.name == "TMur") {
-			Joueurs[crtJoueur].position.set(Joueurs[crtJoueur].position.x, Joueurs[crtJoueur].position.y, -Joueurs[crtJoueur].position.z);
-			return 0;
+			if (temp.distance < Joueurs[crtJoueur].speed) {
+				if (Joueurs[crtJoueur].speed == 2 && temp.distance > 1)
+					return 1;
+				else
+					Joueurs[crtJoueur].position.set(-Joueurs[crtJoueur].position.x, Joueurs[crtJoueur].position.y, Joueurs[crtJoueur].position.z);
+				return 0;
+			}
 		}
 	}
 	return Joueurs[crtJoueur].speed;
-
 }
 
 function touchePressee(event) {
 	keyboard[event.keyCode] = true;
 
 	if (keyboard[32]) { ///q
-		console.log(Modeles);
-		// console.log("Position du joueur ")
-		// console.log(Joueurs[0].position);
+		// console.log(Modeles);
+		console.log("Position du joueur ")
+		console.log(Joueurs[0].position);
 	}
 	if (keyboard[37]) { ///q
 		if (topCameraflag == false) {
@@ -295,10 +303,9 @@ function toucheRelache(event) {
 //lumieres
 function generateLights() {
 	//creation positionnement et ajout des lumieres
-	var lumiere1 = new THREE.AmbientLight(0xfaffbf, 1);
+	var lumiere1 = new THREE.AmbientLight(0xfaffbf, .5);
 	lumiere2 = new THREE.DirectionalLight(0xfaffbf, 1);
 	lumiere2.name = "l1";
-	//lumiere1.position.set(1,1,1);
 
 	lumiere2.castShadow = true;
 
@@ -402,7 +409,7 @@ function animate() {
 }
 
 function render() {
-	if (toBuild.length>0) {
+	if (toBuild.length > 0) {
 		//console.log(toBuild);
 		for (var i = 0; i < toBuild.length; i++) {
 			if (toBuild[i].built) {
@@ -419,7 +426,7 @@ function render() {
 		renderer.render(scene, topCamera);
 
 	} else {
-		scene.fog = new THREE.FogExp2(fogColor, 0.00005);
+		scene.fog = new THREE.FogExp2(fogColor, 0.5);
 		renderer.render(scene, mainCamera);
 	}
 

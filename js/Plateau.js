@@ -41,8 +41,8 @@ function arena() {
 
 	var mat = new THREE.MeshPhongMaterial({
 		map: texture,
-		opacity: 0.4,
-		// color: 0xffffff,
+		opacity: 0.5,
+		color: 0xffffff,
 		transparent: true,
 		fog: false
 	});
