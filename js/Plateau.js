@@ -6,7 +6,7 @@ function arena() {
 	texture.repeat.set(31, 1);
 
 	for (var i = 0; i < 2; i++) {
-		var arenaMesh = new THREE.BoxGeometry(taillePlateau+2, 2, 1);
+		var arenaMesh = new THREE.BoxGeometry(taillePlateau + 2, 2, 1);
 		var arenaMat = new THREE.MeshPhongMaterial({
 			map: texture,
 			color: 0xffffff
@@ -41,7 +41,7 @@ function arena() {
 
 	var mat = new THREE.MeshPhongMaterial({
 		map: texture,
-		opacity:0.4,
+		opacity: 0.4,
 		// color: 0xffffff,
 		transparent: true,
 		fog: false
@@ -59,7 +59,7 @@ function generateBoard() {
 	var texture = new THREE.TextureLoader().load('./img/snowcrack.jpg');
 
 	texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-	texture.repeat.set(taillePlateau*1.73,taillePlateau*1.73);
+	texture.repeat.set(taillePlateau * 1.73, taillePlateau * 1.73);
 
 
 	var boardMesh = new THREE.PlaneGeometry(taillePlateau, taillePlateau);
@@ -96,7 +96,7 @@ function boarding() {
 		[0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
 		[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0],
 		[0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+		[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 10, 9, 8, 5, 6, 7, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
 		[1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1],
 		[0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 3, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0],
@@ -170,7 +170,27 @@ function boarding() {
 					break;
 
 				case 5:
-					scene.add(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "./img/potionSprite.png", "Ppotion"));
+					scene.add(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "./img/potionSpriteIncognito/potionSprite.png", "PIncognito"));
+					break;
+
+				case 6:
+					scene.add(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "./img/potionSpriteView/potionSpriteView.png", "PVision"));
+					break;
+
+				case 7:
+					scene.add(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Botte"));
+					break;
+
+				case 8:
+					scene.add(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Brasero"));
+					break;
+
+				case 9:
+					scene.add(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Cape"));
+					break;
+
+				case 10:
+					scene.add(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Shield"));
 					break;
 
 			}

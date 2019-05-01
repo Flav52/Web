@@ -20,9 +20,6 @@ var skySAT = 40 / 100;
 var fogColor = new THREE.Color("rgba(192,192,192)");
 
 
-//PEDESTAL
-var PedestalScale = new THREE.Vector3(0.3, 0.14, 0.3);
-
 
 //deplacement
 var lastMoved = Date.now();
@@ -38,6 +35,26 @@ var avatarJoueur;
 var sky;
 var hauteur;
 var object;
+
+//feu
+// var fire;
+// var params = {
+// 	color1: '#ffffff',
+// 	color2: '#ffa000',
+// 	color3: '#000000',
+// 	colorBias: 0.8,
+// 	burnRate: 0.35,
+// 	diffuse: 1.33,
+// 	viscosity: 0.25,
+// 	expansion: -0.25,
+// 	swirl: 50.0,
+// 	drag: 0.35,
+// 	airSpeed: 12.0,
+// 	windX: 0.0,
+// 	windY: 0.75,
+// 	speed: 500.0,
+// 	massConservation: false
+// };
 
 
 //fonctions
@@ -95,7 +112,7 @@ function init() {
 			break;
 		}
 	}
-	mainCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.01, 200);
+	mainCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 200);
 	mainCamera.position.x = Joueurs[crtJoueur].position.x;
 	mainCamera.position.y = Joueurs[crtJoueur].position.y + 1.2;
 	mainCamera.position.z = Joueurs[crtJoueur].position.z;
@@ -104,18 +121,6 @@ function init() {
 	var ch = new THREE.CameraHelper(mainCamera);
 	//scene.add(ch);
 
-	// console.log("Position Cam");
-	// console.log(Camera.position.z);
-	// console.log("Position CRT");
-	// console.log(Joueurs[crtJoueur].position.z);
-
-	//Camera.lookAt(new THREE.Vector3(0, 0, 5));
-
-	//parametrage de la camera 
-	// mainCamera = new THREE.PerspectiveCamera(120, window.innerWidth / window.innerHeight, 0.1, 1000);
-	// mainCamera.position.y = 8.5;
-	// mainCamera.position.x = 0;
-	// mainCamera.position.z = 0;
 
 
 	//parametrage de la camera du haut
@@ -159,57 +164,22 @@ function init() {
 	stats = new Stats();
 	container.appendChild(stats.dom);
 
+	// var loader = new THREE.TextureLoader();
+	// loader.crossOrigin = '';
+	// var fireTex = loader.load("https://s3-us-west-2.amazonaws.com/s.cdpn.io/212131/Fire.png");
 
-	// var loader = new THREE.AMFLoader();
-	// loader.load('../rook.amf', function (item) {
-	// 		var material = new THREE.MeshPhongMaterial({
-	// 			color: 0xff5533,
-	// 			specular: 0x111111,
-	// 			shininess: 200
-	// 		});
-	// 		var mesh = new THREE.Mesh(item, material);
-	// 		mesh.position.set(1, 2, 3);
+	// var wireframeMat = new THREE.MeshBasicMaterial({
+	// 	color: new THREE.Color(0xffffff),
+	// 	wireframe: true
+	// });
 
-	// 		scene.add(mesh);
-	// 	},
-
-	// 	function (xhr) {
-	// 		console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-	// 	},
-	// 	function (error) {
-	// 		console.log("Error : ");
-	// 		console.log(error.target);
-	// 	}
-	// );
-
-
-	// function onProgress(xhr) {
-	// 	if (xhr.lengthComputable) {
-	// 		var percentComplete = xhr.loaded / xhr.total * 100;
-	// 		console.log('model ' + Math.round(percentComplete, 2) + '% downloaded');
-	// 	}
-	// }
-
-	// function onError() {}
-
-	// function loadModel() {
-	// 	object.traverse(function (child) {
-	// 		if (child.isMesh) child.material.map = texture;
-	// 	});
-	// 	object.position.set(1, 1, 1);
-	// 	scene.add(object);
-	// }
-
-	// var manager = new THREE.LoadingManager(loadModel);
-	// manager.onProgress = function (item, loaded, total) {
-	// 	console.log(item, loaded, total);
-	// };
-
-	// var loader = new THREE.OBJLoader(manager);
-	// loader.load('../model/sabre.obj', function (obj) {
-	// 	object = obj;
-	// }, onProgress, onError);
-
+	// fire = new THREE.Fire(fireTex);
+	// var wireframe = new THREE.Mesh(fire.geometry, wireframeMat.clone());
+	// fire.add(wireframe);
+	// wireframe.visible = true;
+	// wireframe.visible = false;
+	// wireframe.position.set(-2, 2, -8);
+	// scene.add(wireframe);
 
 }
 
@@ -311,7 +281,7 @@ function toucheRelache(event) {
 //lumieres
 function generateLights() {
 	//creation positionnement et ajout des lumieres
-	var lumiere1 = new THREE.AmbientLight(0xfaffbf, .5);
+	var lumiere1 = new THREE.AmbientLight(0xfaffbf, 1);
 	lumiere2 = new THREE.DirectionalLight(0xfaffbf, 1);
 	lumiere2.name = "l1";
 	//lumiere1.position.set(1,1,1);
@@ -422,7 +392,7 @@ function render() {
 		renderer.render(scene, topCamera);
 
 	} else {
-		scene.fog = new THREE.FogExp2(fogColor, 0.5);
+		scene.fog = new THREE.FogExp2(fogColor, 0.00005);
 		renderer.render(scene, mainCamera);
 	}
 
