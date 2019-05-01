@@ -9,10 +9,6 @@ var raycaster = new THREE.Raycaster();
 var centre = new THREE.Vector2(0, 0);
 var lumiere2;
 
-var idRotate = [];
-var ObjectRotSpeed = 0.008;
-var ObjUpcpt = 0;
-var ObjUpDecay = 0.006;
 
 //Environnement
 var sunspeed = 0.0008;
@@ -23,8 +19,7 @@ var skyHUE = 35 / 360;
 var skySAT = 40 / 100;
 var fogColor = new THREE.Color("rgba(192,192,192)");
 
-var Modeles = [];
-var allBuilt = false;
+
 
 //deplacement
 var lastMoved = Date.now();
@@ -66,8 +61,9 @@ var object;
 //appel des fonctions
 var facteur = 1;
 var nombreJoueur = 1;
-var IdJoueur = 0;
+var IdJoueur = $("#idUser").val();
 var crtJoueur = 0;
+var IdPartie = 0;	//Id de la partie du joueur
 
 
 
@@ -76,7 +72,7 @@ animate();
 //initialisation
 function init() {
 
-	preload();
+
 
 
 
@@ -90,9 +86,10 @@ function init() {
 
 
 
-	var bob = new Joueur(0, 1, 1, 1, 1);
+	var bob = new Joueur(IdJoueur, 1, 1, 1, 1);
 	// bob.speed=2;
 	Joueurs.push(bob);
+
 	Joueurs.push(new Joueur(1, 2, 2, 2, 2));
 	//deplacement
 
@@ -102,6 +99,14 @@ function init() {
 	boarding();
 	generateBoard();
 	arena();
+
+	//Envoi de la création du joueur dans la sauvegarde de la partie
+	$.ajax({
+		method: "POST",
+		url: "ajax_php/ajax_playerSave.php",
+		data: {id: bob.ident, idP: IdPartie, posX: bob.position.x, posZ : bob.position.z, rotY : bob.rotation.y},
+		dataType: "html",
+	});
 
 	//ajout des lumieres
 	generateLights();
@@ -195,45 +200,29 @@ function clearPath() {
 		var temp = intersects[0]
 		//console.log(temp);
 
-		if (temp.object.name == "Mur") {
+		if (temp.object.name == "Mur")
 			if (temp.distance < Joueurs[crtJoueur].speed)
 				if (Joueurs[crtJoueur].speed == 2 && temp.distance > 1)
 					return 1;
 				else return 0;
-		} else if (temp.object.name == "LMur") {
-			if (temp.distance < Joueurs[crtJoueur].speed) {
-				if (Joueurs[crtJoueur].speed == 2 && temp.distance > 1)
-					return 1;
-				else
-					Joueurs[crtJoueur].position.set(Joueurs[crtJoueur].position.x, Joueurs[crtJoueur].position.y, -Joueurs[crtJoueur].position.z);
-				return 0;
-			}
-		} else if (temp.object.name == "TMur") {
-			if (temp.distance < Joueurs[crtJoueur].speed) {
-				if (Joueurs[crtJoueur].speed == 2 && temp.distance > 1)
-					return 1;
-				else
-					Joueurs[crtJoueur].position.set(-Joueurs[crtJoueur].position.x, Joueurs[crtJoueur].position.y, Joueurs[crtJoueur].position.z);
-				return 0;
-			}
-		}
 	}
 	return Joueurs[crtJoueur].speed;
+
 }
 
 function touchePressee(event) {
 	keyboard[event.keyCode] = true;
 
 	if (keyboard[32]) { ///q
-		// console.log(Modeles);
 		console.log("Position du joueur ")
-		console.log(Joueurs[0].position);
+		console.log(Joueurs[crtJoueur].position);
 	}
 	if (keyboard[37]) { ///q
 		if (topCameraflag == false) {
 			Joueurs[crtJoueur].rotation.y += Math.PI * 0.5;
 			mainCamera.rotation.y = Joueurs[0].rotation.y
 		}
+		requestDeplacement();
 		console.debug('ArrowLeft');
 	}
 
@@ -243,6 +232,7 @@ function touchePressee(event) {
 			mainCamera.rotation.y = Joueurs[0].rotation.y
 
 		}
+		requestDeplacement();
 		console.debug('ArrowRight');
 	}
 	if (keyboard[38]) { ///z
@@ -263,6 +253,7 @@ function touchePressee(event) {
 					Joueurs[0].position.z -= Math.cos(Joueurs[0].rotation.y) * 1;
 					
 				}*/
+		requestDeplacement();
 		console.debug('ArrowUp');
 
 	}
@@ -275,6 +266,7 @@ function touchePressee(event) {
 					Joueurs[0].position.x += Math.sin(Joueurs[0].rotation.y) * 1;
 					Joueurs[0].position.z += Math.cos(Joueurs[0].rotation.y) * 1;	
 				}*/
+		requestDeplacement();
 		console.debug('ArrowDown');
 
 	}
@@ -303,9 +295,10 @@ function toucheRelache(event) {
 //lumieres
 function generateLights() {
 	//creation positionnement et ajout des lumieres
-	var lumiere1 = new THREE.AmbientLight(0xfaffbf, .5);
+	var lumiere1 = new THREE.AmbientLight(0xfaffbf, 1);
 	lumiere2 = new THREE.DirectionalLight(0xfaffbf, 1);
 	lumiere2.name = "l1";
+	//lumiere1.position.set(1,1,1);
 
 	lumiere2.castShadow = true;
 
@@ -382,19 +375,17 @@ function newlight() {
 }
 
 
+
+
+
+
+
 //mise a jour du jeu en permanence
 function animate() {
 	//console.debug(lumiere2.intensity);
 	sky.rotation.y += 0.00015;
 	lumiere2.position.y = 100 * Math.sin(suntime);
 	lumiere2.position.z = 20 * Math.cos(suntime);
-
-	for (var i = 0; i < idRotate.length; i++) {
-		var obj = scene.getObjectById(idRotate[i]);
-		obj.rotation.y += ObjectRotSpeed;
-		obj.position.y += Math.sin(ObjUpcpt += ObjUpDecay) / 500;
-	}
-
 	suntime += sunspeed;
 	newlight();
 
@@ -409,24 +400,13 @@ function animate() {
 }
 
 function render() {
-	if (toBuild.length > 0) {
-		//console.log(toBuild);
-		for (var i = 0; i < toBuild.length; i++) {
-			if (toBuild[i].built) {
-				toBuild.splice(i, 1);
-				i--;
-				continue;
-			}
-			toBuild[i].getMesh();
-		}
-	}
 
 	if (topCameraflag) {
 		scene.fog = new THREE.Fog(fogColor, 1);
 		renderer.render(scene, topCamera);
 
 	} else {
-		scene.fog = new THREE.FogExp2(fogColor, 0.5);
+		scene.fog = new THREE.FogExp2(fogColor, 0.00005);
 		renderer.render(scene, mainCamera);
 	}
 
@@ -440,3 +420,63 @@ function degreesToRadians(degrees) {
 function radiansToDegrees(radians) {
 	return radians * 180 / Math.PI;
 }
+
+
+//Envoi du déplacement au serveur
+function requestDeplacement(){
+	$.ajax({
+		method: "POST",
+		url: "ajax_php/ajax_deplacement.php",
+		data: {id: Joueurs[crtJoueur].ident, idP: IdPartie, posX: Joueurs[crtJoueur].position.x, posZ : Joueurs[crtJoueur].position.z, rotY : Joueurs[crtJoueur].rotation.y},
+		dataType: "html",
+	});
+}
+
+
+//Actualisation des position des autres joueurs avec intervalle
+var rfrsh = setInterval(function(){
+	$.ajax({
+		method: "POST",
+		url: "ajax_php/ajax_playerRefresh.php",
+		data: {id: IdJoueur, idP: IdPartie},
+		dataType: "html",
+		success: function(playersData){
+			var data = JSON.parse(playersData);
+			var indFind = -1;
+			data = data["Joueurs"];
+
+			console.log(data);
+
+			data.forEach(function(element){
+				if(element["id"] == IdJoueur){
+				}else{
+					Joueurs.forEach(function(_joueur){
+						if(_joueur.ident == element["id"]){
+							indFind = Joueurs.indexOf(_joueur);
+						}
+					});
+
+					if(indFind>=0){
+						var _player = Joueurs[indFind];
+						_player.position.x = element["positionX"];
+						_player.position.z = element["positionZ"];
+						_player.rotation.y = element["rotationY"];
+						console.log("find");
+					}else{
+						var newJ = new Joueur(element["id"], 2, 2, 1, 2);
+
+
+						newJ.position.x = element["positionX"];
+						newJ.position.z = element["positionZ"];
+						newJ.position.y = 1;
+						newJ.rotation.y = element["rotationY"];
+
+						Joueurs.push(newJ);
+						scene.add(newJ);
+						console.log("new");
+					}
+				}
+				render();
+			});
+		}});
+}, 100);

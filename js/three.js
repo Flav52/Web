@@ -11248,7 +11248,7 @@
 
 			}
 
-			if ( name === 'index' ) {
+			if ( name === 'index.php' ) {
 
 				console.warn( 'THREE.BufferGeometry.addAttribute: Use .setIndex() for index attribute.' );
 				this.setIndex( attribute );
