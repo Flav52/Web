@@ -9,6 +9,10 @@ var raycaster = new THREE.Raycaster();
 var centre = new THREE.Vector2(0, 0);
 var lumiere2;
 
+var idRotate = [];
+var ObjectRotSpeed = 0.008;
+var ObjUpcpt = 0;
+var ObjUpDecay = 0.006;
 
 //Environnement
 var sunspeed = 0.0008;
@@ -19,7 +23,8 @@ var skyHUE = 35 / 360;
 var skySAT = 40 / 100;
 var fogColor = new THREE.Color("rgba(192,192,192)");
 
-
+var Modeles = [];
+var allBuilt = false;
 
 //deplacement
 var lastMoved = Date.now();
@@ -71,7 +76,7 @@ animate();
 //initialisation
 function init() {
 
-
+	preload();
 
 
 
@@ -188,13 +193,21 @@ function clearPath() {
 	var intersects = raycaster.intersectObjects(collision);
 	if (intersects.length > 0) {
 		var temp = intersects[0]
-		//console.log(temp);
+		console.log(temp);
 
-		if (temp.object.name == "Mur")
+		if (temp.object.name === "Mur")
 			if (temp.distance < Joueurs[crtJoueur].speed)
 				if (Joueurs[crtJoueur].speed == 2 && temp.distance > 1)
 					return 1;
 				else return 0;
+
+		else if (temp.object.name == "LMur") {
+			Joueurs[crtJoueur].position.set(-Joueurs[crtJoueur].position.x, Joueurs[crtJoueur].position.y, Joueurs[crtJoueur].position.z);
+			return 0;
+		} else if (temp.object.name == "TMur") {
+			Joueurs[crtJoueur].position.set(Joueurs[crtJoueur].position.x, Joueurs[crtJoueur].position.y, -Joueurs[crtJoueur].position.z);
+			return 0;
+		}
 	}
 	return Joueurs[crtJoueur].speed;
 
@@ -204,12 +217,13 @@ function touchePressee(event) {
 	keyboard[event.keyCode] = true;
 
 	if (keyboard[32]) { ///q
-		console.log("Position du joueur ")
-		console.log(Joueurs[0].position);
+		console.log(Modeles);
+		// console.log("Position du joueur ")
+		// console.log(Joueurs[0].position);
 	}
 	if (keyboard[37]) { ///q
 		if (topCameraflag == false) {
-			Joueurs[0].rotation.y += Math.PI * 0.5;
+			Joueurs[crtJoueur].rotation.y += Math.PI * 0.5;
 			mainCamera.rotation.y = Joueurs[0].rotation.y
 		}
 		console.debug('ArrowLeft');
@@ -217,7 +231,7 @@ function touchePressee(event) {
 
 	if (keyboard[39]) { ///d
 		if (topCameraflag == false) {
-			Joueurs[0].rotation.y -= Math.PI * 0.5;
+			Joueurs[crtJoueur].rotation.y -= Math.PI * 0.5;
 			mainCamera.rotation.y = Joueurs[0].rotation.y
 
 		}
@@ -361,17 +375,19 @@ function newlight() {
 }
 
 
-
-
-
-
-
 //mise a jour du jeu en permanence
 function animate() {
 	//console.debug(lumiere2.intensity);
 	sky.rotation.y += 0.00015;
 	lumiere2.position.y = 100 * Math.sin(suntime);
 	lumiere2.position.z = 20 * Math.cos(suntime);
+
+	for (var i = 0; i < idRotate.length; i++) {
+		var obj = scene.getObjectById(idRotate[i]);
+		obj.rotation.y += ObjectRotSpeed;
+		obj.position.y += Math.sin(ObjUpcpt += ObjUpDecay) / 500;
+	}
+
 	suntime += sunspeed;
 	newlight();
 
@@ -386,6 +402,17 @@ function animate() {
 }
 
 function render() {
+	if (toBuild.length>0) {
+		//console.log(toBuild);
+		for (var i = 0; i < toBuild.length; i++) {
+			if (toBuild[i].built) {
+				toBuild.splice(i, 1);
+				i--;
+				continue;
+			}
+			toBuild[i].getMesh();
+		}
+	}
 
 	if (topCameraflag) {
 		scene.fog = new THREE.Fog(fogColor, 1);
