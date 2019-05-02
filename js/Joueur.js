@@ -1,30 +1,26 @@
 class Joueur extends THREE.Group {
-
-
-
-    constructor(cid, cmpt, pdp, dir, cEtat) {
+    constructor(cid, cmpt, cEtat) {
         super();
         this.name = "Joueur";
         this.ident = cid;
         this.comptej = cmpt;
-        this.avatar = pdp;
-        this.direction = dir;
         this.etat = cEtat;
+        this.idMesh = null;
         this.built = false;
-        this.ttb = [];
+        this.ttb = null;
         switch (this.etat) {
             case 'keke':
-                this.ttb[0] = 'keke';
+                this.ttb = 'keke';
                 this.getMesh();
                 break;
 
             case 'badger':
-                this.ttb[0] = 'badger';
+                this.ttb = 'badger';
                 this.getMesh();
                 break;
 
             case 'neutral':
-                this.ttb[0] = 'neutral';
+                this.ttb = 'neutral';
                 this.getMesh();
                 break;
         }
@@ -38,26 +34,33 @@ class Joueur extends THREE.Group {
         }
     }
 
+    updateEtat(nv) {
+        this.etat = nv;
+        this.updateMesh();
+    }
+
+    updateMesh() {
+        if (typeof Modele[this.etat] !== 'undefined') {
+            var msh = Modele[this.etat].clone();
+            msh.name=this.etat;
+            var temp=this.getObjectById(this.idMesh);
+            this.remove(temp);
+           // msh.position.set(temp.position);
+          //  msh.rotation.set(temp.rotation);
+            this.add(msh);
+            this.idMesh = msh.id;
+
+        }
+    }
+
     getMesh() {
         if (typeof Modele[this.ttb] !== 'undefined') {
             var mesh = Modele[this.ttb].clone();
             mesh.rotation.y += Math.PI;
-            switch (this.ttb) {
-                case 'keke':
-                    mesh.position.set(this.x, keke[0], this.z);
-                    break;
-                case 'badger':
-                    mesh.position.set(this.x, badger[0], this.z);
-                    break;
-                case 'neutral':
-                    mesh.position.set(this.x, neutral[0], this.z);
-                    break;
-
-            }
+            mesh.name=this.ttb;
             this.ttb = null;
+            this.idMesh = mesh.id;
             this.add(mesh);
-        }
-        if (this.ttb == null) {
             scene.add(this);
             this.built = true;
         }

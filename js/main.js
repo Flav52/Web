@@ -23,6 +23,7 @@ var skyHUE = 35 / 360;
 var skySAT = 40 / 100;
 var fogColor = new THREE.Color("rgba(192,192,192)");
 
+var Items = [];
 var Modeles = [];
 var allBuilt = false;
 
@@ -36,10 +37,7 @@ var mainCamera;
 var topCamera;
 var scene;
 var renderer;
-var avatarJoueur;
 var sky;
-var hauteur;
-var object;
 
 //feu
 // var fire;
@@ -90,10 +88,10 @@ function init() {
 
 
 
-	var bob = new Joueur(0, 1, 1, 1, 'keke');
+	var bob = new Joueur(0, 0, 'keke');
 	// bob.speed=2;
 	Joueurs.push(bob);
-	Joueurs.push(new Joueur(1, 2, 2, 2, 'badger'));
+	Joueurs.push(new Joueur(1, 1, 'badger'));
 	//deplacement
 
 
@@ -195,27 +193,32 @@ function clearPath() {
 		var temp = intersects[0]
 		//console.log(temp);
 
-		if (temp.object.name == "Mur") {
-			if (temp.distance < Joueurs[crtJoueur].speed)
-				if (Joueurs[crtJoueur].speed == 2 && temp.distance > 1)
-					return 1;
-				else return 0;
-		} else if (temp.object.name == "LMur") {
-			if (temp.distance < Joueurs[crtJoueur].speed) {
-				if (Joueurs[crtJoueur].speed == 2 && temp.distance > 1)
-					return 1;
-				else
-					Joueurs[crtJoueur].position.set(Joueurs[crtJoueur].position.x, Joueurs[crtJoueur].position.y, -Joueurs[crtJoueur].position.z);
-				return 0;
-			}
-		} else if (temp.object.name == "TMur") {
-			if (temp.distance < Joueurs[crtJoueur].speed) {
-				if (Joueurs[crtJoueur].speed == 2 && temp.distance > 1)
-					return 1;
-				else
-					Joueurs[crtJoueur].position.set(-Joueurs[crtJoueur].position.x, Joueurs[crtJoueur].position.y, Joueurs[crtJoueur].position.z);
-				return 0;
-			}
+		switch (temp.object.name) {
+			case "Mur":
+			case "brasero":
+				if (temp.distance < Joueurs[crtJoueur].speed)
+					if (Joueurs[crtJoueur].speed == 2 && temp.distance > 1)
+						return 1;
+					else return 0;
+				break;
+			case "LMur":
+				if (temp.distance < Joueurs[crtJoueur].speed) {
+					if (Joueurs[crtJoueur].speed == 2 && temp.distance > 1)
+						return 1;
+					else
+						Joueurs[crtJoueur].position.set(Joueurs[crtJoueur].position.x, Joueurs[crtJoueur].position.y, -Joueurs[crtJoueur].position.z);
+					return 0;
+				}
+				break;
+			case "TMur":
+				if (temp.distance < Joueurs[crtJoueur].speed) {
+					if (Joueurs[crtJoueur].speed == 2 && temp.distance > 1)
+						return 1;
+					else
+						Joueurs[crtJoueur].position.set(-Joueurs[crtJoueur].position.x, Joueurs[crtJoueur].position.y, Joueurs[crtJoueur].position.z);
+					return 0;
+				}
+				break;
 		}
 	}
 	return Joueurs[crtJoueur].speed;
@@ -322,8 +325,8 @@ function generateLights() {
 	var helperr2 = new THREE.CameraHelper(lumiere2.shadow.camera);
 	//scene.add(helperr2);
 
-	lumiere2.shadowMapWidth = 2048;
-	lumiere2.shadowMapHeight = 2048;
+	lumiere2.shadow.mapSize.width = 2048;
+	lumiere2.shadow.mapSize.height = 2048;
 
 
 	lumiere2.position.set(-10, 100, 20);
@@ -389,10 +392,14 @@ function animate() {
 	lumiere2.position.y = 100 * Math.sin(suntime);
 	lumiere2.position.z = 20 * Math.cos(suntime);
 
-	for (var i = 0; i < idRotate.length; i++) {
-		var obj = scene.getObjectById(idRotate[i]);
-		obj.rotation.y += ObjectRotSpeed;
-		obj.position.y += Math.sin(ObjUpcpt += ObjUpDecay) / 500;
+	try {
+		for (var i = 0; i < idRotate.length; i++) {
+			var obj = scene.getObjectById(idRotate[i]);
+			obj.rotation.y += ObjectRotSpeed;
+			obj.position.y += Math.sin(ObjUpcpt += ObjUpDecay) / 500;
+		}
+	} catch (error) {
+		console.log("Erreur non critique: Rotation");
 	}
 
 	suntime += sunspeed;

@@ -6,7 +6,7 @@ var shield = [2, '../model/shield/', 'shield.mtl', 'shield.obj', '../model/shiel
 var badger = [0, '../model/badger/', 'badger.mtl', 'badger.obj', '../model/badger/badgerTex.png', new THREE.Vector3(0.3, 0.3, 0.3)];
 var keke = [0, '../model/keke/', 'keke.mtl', 'keke.obj', '../model/keke/kekeTex.png', new THREE.Vector3(0.3, 0.3, 0.3)];
 var neutral = [0, '../model/neutral/', 'neutral.mtl', 'neutral.obj', '../model/neutral/neutralTex.png', new THREE.Vector3(0.3, 0.3, 0.3)];
-var flaque = [1.01, '../model/flaque/', 'flaque.mtl', 'flaque.obj', '../model/flaque/flaque.png', new THREE.Vector3(0.3, 0.3, 0.3)];
+var flaque = [1.01, '../model/flaque/', 'flaque.mtl', 'flaque.obj', '../model/flaque/flaque.png', new THREE.Vector3(0.2, 1, 0.2)];
 
 var toLoad = [pedestal, botte, brasero, cape, shield, badger, keke, neutral, flaque];
 var Modele = [];
@@ -30,23 +30,7 @@ class Pedestal extends THREE.Group {
         this.active = true;
         this.name = type;
         this.built = false;
-
-        // var spotLight = new THREE.SpotLight(0xffffff, 0.1);
-        // spotLight.position.set(x, 4, z);
-        // spotLight.target.position.set(x, 0, z);
-        // spotLight.target.updateMatrixWorld();
-
-        // spotLight.penumbra = 0.6;
-        // spotLight.castShadow = true;
-
-        // spotLight.shadow.mapSize.width = 1024;
-        // spotLight.shadow.mapSize.height = 1024;
-
-        // spotLight.shadow.camera.near = 0.1;
-        // spotLight.shadow.camera.far = 10;
-        // spotLight.shadow.camera.fov = 20;
-       // this.add(spotLight);
-
+        Items.push(this);
 
         if (this.name == "PIncognito") {
             var spriteMap = new THREE.TextureLoader().load(img);
@@ -108,9 +92,16 @@ class Pedestal extends THREE.Group {
         if (!this.built) {
             toBuild.push(this);
         } else {
+            
             scene.add(this);
         }
 
+    }
+
+    update(){
+        // this.children.forEach(function(elem){
+        //     if(elem.name!="P")
+        // });
     }
 
     getMesh() {
@@ -119,6 +110,7 @@ class Pedestal extends THREE.Group {
             var crttype = this.ttb[i];
             if (typeof Modele[crttype] !== 'undefined') {
                 var mesh = Modele[crttype].clone();
+                mesh.name=crttype;
                 switch (crttype) {
                     case 'peddestal':
                         mesh.position.set(this.x, pedestal[0], this.z);
@@ -128,6 +120,7 @@ class Pedestal extends THREE.Group {
                         mesh.position.set(this.x, botte[0], this.z);
                         break;
                     case 'brasero':
+                        collision.push(mesh);
                         mesh.position.set(this.x, brasero[0], this.z);
                         break;
                     case 'cape':
@@ -142,7 +135,7 @@ class Pedestal extends THREE.Group {
                     case 'flaque':
                         //idRotate.push(mesh.id);
                         mesh.material.transparent = true;
-                        mesh.castShadow=false;
+                        mesh.castShadow = false;
                         mesh.position.set(this.x, flaque[0], this.z);
                         break;
                 }
@@ -178,11 +171,8 @@ function loadObj(x, y, z, path, mtl, obj, tex, Scale) {
             mesh.receiveShadow = true;
             var mat = mesh.material;
             mat.map = new THREE.TextureLoader().load(tex);
-            //mat.color.set(0xffffff);
-
             var str = obj.substring(0, obj.indexOf("."));
             Modele[str] = mesh.clone();
-            //scene.add(object);
         }, onProgress, onError);
     });
     var onProgress = function (xhr) {

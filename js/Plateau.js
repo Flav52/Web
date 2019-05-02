@@ -164,7 +164,7 @@ function boarding() {
 					Joueurs[cpt].position.x = Math.floor((j - largeurPlateau / 2));
 					Joueurs[cpt].position.y = 1;
 					Joueurs[cpt].position.z = Math.floor((i - largeurPlateau / 2));
-					scene.add(Joueurs[cpt]);
+					//scene.add(Joueurs[cpt]);
 					//console.log(Joueurs[cpt].position);
 					cpt++;
 					break;
