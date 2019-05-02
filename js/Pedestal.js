@@ -55,53 +55,51 @@ class Pedestal extends THREE.Group {
             this.add(sprite);
             this.ttb[0] = 'peddestal';
             this.getMesh();
-            // loadObj(x, 1, z, '../model/peddestal/', 'peddestal.mtl', 'peddestal.obj', '../model/peddestal/peddestalTex.png', new THREE.Vector3(0.3, 0.17, 0.3));
         } else
         if (this.name == "Botte") {
             this.ttb[0] = 'boots';
             this.ttb[1] = 'peddestal';
             this.getMesh();
-            // loadObj(x, 1.6, z, '../model/botte/', 'boots.mtl', 'boots.obj', '../model/botte/bootsTex.png', new THREE.Vector3(0.1, 0.1, 0.1), 1);
-            // loadObj(x, 1, z, '../model/peddestal/', 'peddestal.mtl', 'peddestal.obj', '../model/peddestal/peddestalTex.png', new THREE.Vector3(0.3, 0.17, 0.3));
 
         } else
         if (this.name == "Brasero") {
             this.ttb[0] = 'brasero';
             this.getMesh();
-            //  loadObj(x, 1, z, '../model/brasero/', 'brasero.mtl', 'brasero.obj', '../model/brasero/braseroTex.png', new THREE.Vector3(0.3, 0.3, 0.3));
 
         } else
         if (this.name == "Cape") {
             this.ttb[0] = 'cape';
             this.getMesh();
-            //  loadObj(x, 2, z, '../model/cape/', 'cape.mtl', 'cape.obj', '../model/cape/capeTex.png', new THREE.Vector3(0.13, 0.17, 0.13), 1, 2);
         } else
         if (this.name == "Shield") {
             this.ttb[0] = 'shield';
             this.ttb[1] = 'peddestal';
             this.getMesh();
-            //loadObj(x, 2, z, '../model/shield/', 'shield.mtl', 'shield.obj', '../model/shield/shieldText.png', new THREE.Vector3(0.05, 0.05, 0.05), 1);
-            // loadObj(x, 1, z, '../model/peddestal/', 'peddestal.mtl', 'peddestal.obj', '../model/peddestal/peddestalTex.png', new THREE.Vector3(0.3, 0.17, 0.3));
         } else
         if (this.name == "Flaque") {
             this.ttb[0] = 'flaque';
             this.getMesh();
-            //  loadObj(x, 2, z, '../model/cape/', 'cape.mtl', 'cape.obj', '../model/cape/capeTex.png', new THREE.Vector3(0.13, 0.17, 0.13), 1, 2);
         }
 
         if (!this.built) {
             toBuild.push(this);
         } else {
-            
+
             scene.add(this);
         }
 
     }
 
-    update(){
-        // this.children.forEach(function(elem){
-        //     if(elem.name!="P")
-        // });
+    update() {
+        let tmp=this;
+        this.children.forEach(function (elem) {
+            if (elem.name != "peddestal") {
+                if (tmp.active == true)
+                    elem.visible = true;
+                else
+                    elem.visible = false;
+            }
+        });
     }
 
     getMesh() {
@@ -110,7 +108,7 @@ class Pedestal extends THREE.Group {
             var crttype = this.ttb[i];
             if (typeof Modele[crttype] !== 'undefined') {
                 var mesh = Modele[crttype].clone();
-                mesh.name=crttype;
+                mesh.name = crttype;
                 switch (crttype) {
                     case 'peddestal':
                         mesh.position.set(this.x, pedestal[0], this.z);
@@ -155,22 +153,20 @@ class Pedestal extends THREE.Group {
 
 function loadObj(x, y, z, path, mtl, obj, tex, Scale) {
     THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader());
-    new THREE.MTLLoader().setPath(path).load(mtl, function (materials) {
+    new THREE.MTLLoader(manager).setPath(path).load(mtl, function (materials) {
         materials.preload();
-        new THREE.OBJLoader().setMaterials(materials).setPath(path).load(obj, function (object) { //Object === GROUP
+        new THREE.OBJLoader(manager).setMaterials(materials).setPath(path).load(obj, function (object) { //Object === GROUP
             object.scale.set(Scale.x, Scale.y, Scale.z);
             var mesh = object.children[0];
             mesh.scale.set(Scale.x, Scale.y, Scale.z);
             mesh.position.set(x, y, z);
-
-
             mesh.material = new THREE.MeshPhongMaterial({
                 combine: THREE.NormalBlending
             });
             mesh.castShadow = true;
             mesh.receiveShadow = true;
             var mat = mesh.material;
-            mat.map = new THREE.TextureLoader().load(tex);
+            mat.map = new THREE.TextureLoader(manager).load(tex);
             var str = obj.substring(0, obj.indexOf("."));
             Modele[str] = mesh.clone();
         }, onProgress, onError);
@@ -184,4 +180,31 @@ function loadObj(x, y, z, path, mtl, obj, tex, Scale) {
     var onError = function (error) {
         console.log("Erreur : " + error.target);
     };
+    var onLoad = function () {};
 }
+
+var manager = new THREE.LoadingManager();
+manager.onStart = function (url, itemsLoaded, itemsTotal) {
+
+    console.log('Chargement de: ' + url + '.\n --' + itemsLoaded + ' sur ' + itemsTotal + '.');
+
+};
+
+manager.onLoad = function () {
+
+    console.log('Chargement terminé!');
+
+};
+
+
+manager.onProgress = function (url, itemsLoaded, itemsTotal) {
+
+    console.log('Chargement de: ' + url + '.\n --' + itemsLoaded + ' objets chargé(s) sur ' + itemsTotal + '.');
+
+};
+
+manager.onError = function (url) {
+
+    console.log('Erreur lors du chargement ' + url);
+
+};
