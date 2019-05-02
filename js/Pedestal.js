@@ -3,8 +3,11 @@ var botte = [1.6, '../model/botte/', 'boots.mtl', 'boots.obj', '../model/botte/b
 var brasero = [1, '../model/brasero/', 'brasero.mtl', 'brasero.obj', '../model/brasero/braseroTex.png', new THREE.Vector3(0.3, 0.3, 0.3)];
 var cape = [2, '../model/cape/', 'cape.mtl', 'cape.obj', '../model/cape/capeTex.png', new THREE.Vector3(0.13, 0.17, 0.13)];
 var shield = [2, '../model/shield/', 'shield.mtl', 'shield.obj', '../model/shield/shieldText.png', new THREE.Vector3(0.05, 0.05, 0.05)];
+var badger = [0, '../model/badger/', 'badger.mtl', 'badger.obj', '../model/badger/badgerTex.png', new THREE.Vector3(0.3, 0.3, 0.3)];
+var keke = [0, '../model/keke/', 'keke.mtl', 'keke.obj', '../model/keke/kekeTex.png', new THREE.Vector3(0.3, 0.3, 0.3)];
+var neutral = [0, '../model/neutral/', 'neutral.mtl', 'neutral.obj', '../model/neutral/neutralTex.png', new THREE.Vector3(0.3, 0.3, 0.3)];
 
-var toLoad = [pedestal, botte, brasero, cape, shield];
+var toLoad = [pedestal, botte, brasero, cape, shield, badger, keke, neutral];
 var Modele = [];
 var toBuild = [];
 
@@ -41,7 +44,7 @@ class Pedestal extends THREE.Group {
         spotLight.shadow.camera.near = 0.1;
         spotLight.shadow.camera.far = 10;
         spotLight.shadow.camera.fov = 20;
-        this.add(spotLight);
+        //this.add(spotLight);
 
 
         if (this.name == "PIncognito") {
@@ -123,7 +126,7 @@ class Pedestal extends THREE.Group {
                         break;
                     case 'cape':
                         idRotate.push(mesh.id);
-                        mesh.geometry.translate(0, 0, 2);
+                        mesh.geometry.translate(0, 0, 0.5);
                         mesh.position.set(this.x, cape[0], this.z);
                         break;
                     case 'shield':

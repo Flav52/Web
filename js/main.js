@@ -90,10 +90,10 @@ function init() {
 
 
 
-	var bob = new Joueur(0, 1, 1, 1, 1);
+	var bob = new Joueur(0, 1, 1, 1, 'keke');
 	// bob.speed=2;
 	Joueurs.push(bob);
-	Joueurs.push(new Joueur(1, 2, 2, 2, 2));
+	Joueurs.push(new Joueur(1, 2, 2, 2, 'badger'));
 	//deplacement
 
 
@@ -227,12 +227,12 @@ function touchePressee(event) {
 	if (keyboard[32]) { ///q
 		// console.log(Modeles);
 		console.log("Position du joueur ")
-		console.log(Joueurs[0].position);
+		console.log(Joueurs[crtJoueur].position);
 	}
 	if (keyboard[37]) { ///q
 		if (topCameraflag == false) {
 			Joueurs[crtJoueur].rotation.y += Math.PI * 0.5;
-			mainCamera.rotation.y = Joueurs[0].rotation.y
+			mainCamera.rotation.y = Joueurs[crtJoueur].rotation.y
 		}
 		console.debug('ArrowLeft');
 	}
@@ -240,7 +240,7 @@ function touchePressee(event) {
 	if (keyboard[39]) { ///d
 		if (topCameraflag == false) {
 			Joueurs[crtJoueur].rotation.y -= Math.PI * 0.5;
-			mainCamera.rotation.y = Joueurs[0].rotation.y
+			mainCamera.rotation.y = Joueurs[crtJoueur].rotation.y
 
 		}
 		console.debug('ArrowRight');
@@ -251,16 +251,16 @@ function touchePressee(event) {
 			lastMoved = time;
 
 			var spd = clearPath();
-			Joueurs[crtJoueur].position.x -= spd * Math.round(Math.sin(Joueurs[0].rotation.y) * 1);
-			Joueurs[crtJoueur].position.z -= spd * Math.round(Math.cos(Joueurs[0].rotation.y) * 1);
+			Joueurs[crtJoueur].position.x -= spd * Math.round(Math.sin(Joueurs[crtJoueur].rotation.y) * 1);
+			Joueurs[crtJoueur].position.z -= spd * Math.round(Math.cos(Joueurs[crtJoueur].rotation.y) * 1);
 			mainCamera.position.x = Joueurs[crtJoueur].position.x;
 			mainCamera.position.z = Joueurs[crtJoueur].position.z;
 			mainCamera.rotation.y = Joueurs[crtJoueur].rotation.y;
 
 		}
 		/*else{
-					Joueurs[0].position.x -= Math.sin(Joueurs[0].rotation.y) * 1;
-					Joueurs[0].position.z -= Math.cos(Joueurs[0].rotation.y) * 1;
+					Joueurs[crtJoueur].position.x -= Math.sin(Joueurs[crtJoueur].rotation.y) * 1;
+					Joueurs[crtJoueur].position.z -= Math.cos(Joueurs[crtJoueur].rotation.y) * 1;
 					
 				}*/
 		console.debug('ArrowUp');
@@ -272,8 +272,8 @@ function touchePressee(event) {
 			mainCamera.rotation.y = Joueurs[crtJoueur].rotation.y;
 		}
 		/*else{
-					Joueurs[0].position.x += Math.sin(Joueurs[0].rotation.y) * 1;
-					Joueurs[0].position.z += Math.cos(Joueurs[0].rotation.y) * 1;	
+					Joueurs[crtJoueur].position.x += Math.sin(Joueurs[crtJoueur].rotation.y) * 1;
+					Joueurs[crtJoueur].position.z += Math.cos(Joueurs[crtJoueur].rotation.y) * 1;	
 				}*/
 		console.debug('ArrowDown');
 
