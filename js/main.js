@@ -9,6 +9,9 @@ var raycaster = new THREE.Raycaster();
 var centre = new THREE.Vector2(0, 0);
 var lumiere2;
 
+//SON
+var listener;
+
 var idRotate = [];
 var ObjectRotSpeed = 0.008;
 var ObjUpcpt = 0;
@@ -135,8 +138,9 @@ function init() {
 	topCamera.rotation.x = degreesToRadians(-90);
 
 	////
-
-	//ajout des murs
+	listener = new THREE.AudioListener();
+	mainCamera.add(listener);
+	topCamera.add(listener);
 
 
 
@@ -229,6 +233,7 @@ function touchePressee(event) {
 
 	if (keyboard[32]) { ///q
 		// console.log(Modeles);
+		gong();
 		console.log("Position du joueur ")
 		console.log(Joueurs[crtJoueur].position);
 	}

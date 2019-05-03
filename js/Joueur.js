@@ -42,11 +42,11 @@ class Joueur extends THREE.Group {
     updateMesh() {
         if (typeof Modele[this.etat] !== 'undefined') {
             var msh = Modele[this.etat].clone();
-            msh.name=this.etat;
-            var temp=this.getObjectById(this.idMesh);
+            msh.name = this.etat;
+            var temp = this.getObjectById(this.idMesh);
             this.remove(temp);
-           // msh.position.set(temp.position);
-          //  msh.rotation.set(temp.rotation);
+            // msh.position.set(temp.position);
+            //  msh.rotation.set(temp.rotation);
             this.add(msh);
             this.idMesh = msh.id;
 
@@ -57,7 +57,7 @@ class Joueur extends THREE.Group {
         if (typeof Modele[this.ttb] !== 'undefined') {
             var mesh = Modele[this.ttb].clone();
             mesh.rotation.y += Math.PI;
-            mesh.name=this.ttb;
+            mesh.name = this.ttb;
             this.ttb = null;
             this.idMesh = mesh.id;
             this.add(mesh);
@@ -67,4 +67,14 @@ class Joueur extends THREE.Group {
     }
 
 
+}
+
+function gong() {
+    var audioLoader = new THREE.AudioLoader();
+    var sound1 = new THREE.Audio(listener);
+    audioLoader.load('sound/gong-8.mp3', function (buffer) {
+        sound1.setBuffer(buffer);
+        sound1.play();
+    });
+    scene.add(sound1);
 }
