@@ -5,7 +5,11 @@ if (!isset($_SESSION['login'])) {
 	exit();
 }
 
-//récup les différents tableaux 
+//récup les différents tableaux
+$tabJoueur = array();
+$tabSpec = array();
+$tabPartie = array();
+$tabPartieSpec = array();
 
 
 ?>
