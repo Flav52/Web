@@ -27,14 +27,13 @@ if (isset($_POST['valider']) && $_POST['valider'] == 'Valider') {
       $sql = "INSERT INTO Players (nom, mail,pass_hash) VALUES ('$nameP', '$mail', '$pswdH')";
 
       if (mysqli_query($conn, $sql)) {
-          echo "Successfully registered";
+          $erreur = "Successfully registered";
           mysqli_close($conn);
           session_start();
           $_SESSION['login'] = $_POST['login'];
           header('Location: lobby.php');
       } else {
-        echo "Error: This player already exists or is banned";
-        echo mysqli_error($conn);
+        $erreur = "Error: This player already exists or is banned";
         mysqli_close($conn);
       }
   }
@@ -55,6 +54,13 @@ if (isset($_POST['valider']) && $_POST['valider'] == 'Valider') {
 </head>
   <body>
     <h1 class="titre"> Inscription: </h1>
+	<div>
+      		<select id="select" name='theme' onchange="theme(this.selectedIndex)">
+        		<option value="basique" selected>basique</option>
+        		<option value="sombre">sombre</option>
+        		<option value="vert">vert</option>
+     		 </select>
+    	</div>
         <form class="newCompte" name="compte" method="post">
             Mail : <input class="zoneTexte" type="text" name="mail"/><br/>
             Login : <input class="zoneTexte" type="text" name="login"/><br/>
@@ -62,13 +68,10 @@ if (isset($_POST['valider']) && $_POST['valider'] == 'Valider') {
             <input class="bouton" type="submit" name="valider" value="Valider"/>
         </form>
         <br/>
-        <?php
-        if (isset($erreur))echo $erreur, '<br/><br/>'; 
-        if (isset($query))echo 'Inscription acceptée', '<br/><br/>'; 
-        ?>
-   
+        <?php if (isset($erreur))echo $erreur, '<br/><br/>'; ?>
     <a href="index.php" >
         Retour au menu
     </a>
+	<script src="../js/theme.js"></script>
   </body>
 </html>
