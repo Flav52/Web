@@ -66,15 +66,10 @@ var crtJoueur = 0;
 var IdPartie = 0;	//Id de la partie du joueur
 
 
-
 init();
 animate();
 //initialisation
-function init() {
-
-
-
-
+function init(){
 
 	//creation de la scene
 	scene = new THREE.Scene();
@@ -103,7 +98,7 @@ function init() {
 	//Envoi de la création du joueur dans la sauvegarde de la partie
 	$.ajax({
 		method: "POST",
-		url: "ajax_php/ajax_playerSave.php",
+		url: "../ajax_php/ajax_playerSave.php",
 		data: {id: bob.ident, idP: IdPartie, posX: bob.position.x, posZ : bob.position.z, rotY : bob.rotation.y},
 		dataType: "html",
 	});
@@ -426,7 +421,7 @@ function radiansToDegrees(radians) {
 function requestDeplacement(){
 	$.ajax({
 		method: "POST",
-		url: "ajax_php/ajax_deplacement.php",
+		url: "../ajax_php/ajax_deplacement.php",
 		data: {id: Joueurs[crtJoueur].ident, idP: IdPartie, posX: Joueurs[crtJoueur].position.x, posZ : Joueurs[crtJoueur].position.z, rotY : Joueurs[crtJoueur].rotation.y},
 		dataType: "html",
 	});
@@ -437,7 +432,7 @@ function requestDeplacement(){
 var rfrsh = setInterval(function(){
 	$.ajax({
 		method: "POST",
-		url: "ajax_php/ajax_playerRefresh.php",
+		url: "../ajax_php/ajax_playerRefresh.php",
 		data: {id: IdJoueur, idP: IdPartie},
 		dataType: "html",
 		success: function(playersData){
@@ -479,4 +474,4 @@ var rfrsh = setInterval(function(){
 				render();
 			});
 		}});
-}, 100);
+}, 300);

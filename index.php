@@ -4,7 +4,7 @@
 
 <head>
     <link rel="stylesheet" href="css/stylesheet.css" />
-    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
 
     <div id="blocker">
         <div id="instructions">
-            
+
         </div>
     </div>
 

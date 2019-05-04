@@ -35,6 +35,7 @@ $jData = json_encode($data);
 if($ex){
     fwrite($fp, $jData);
     fclose($fp);
+    chmod($fileName, 0766);
 }else{
     file_put_contents($fileName, $jData);
 }
