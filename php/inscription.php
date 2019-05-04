@@ -69,7 +69,7 @@ if (isset($_POST['valider']) && $_POST['valider'] == 'Valider') {
         </form>
         <br/>
         <?php if (isset($erreur))echo $erreur, '<br/><br/>'; ?>
-    <a href="index.php" >
+    <a id="lien2" href="index.php" >
         Retour au menu
     </a>
 	<script src="../js/theme.js"></script>
