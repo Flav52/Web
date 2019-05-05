@@ -3,7 +3,7 @@
 $Map;
 $Joueurs;
 
-//TODO: Ajouter la data 'etat' 'alive' et 'visible' au JSON des joueurs
+//TODO: Ajouter la data 'etat' 'alive' et 'visible' 'invincible' 'avatar' au JSON des joueurs
 
 //Collisions entre joueurs
 for($i = $offset ; $i < sizeof($Joueurs) ; $i++){
@@ -30,11 +30,12 @@ else if($b.etat=='badger' && $a.etat='badger'){
 }
 
 function kill($x){
-    for($i=0;i<sizeof($Joueurs);$i++){
-        if($Joueurs[$i].ident==$x.ident){
-            $Joueurs[$i].alive=false;
+    if(!$x.invincible)
+        for($i=0;i<sizeof($Joueurs);$i++){
+            if($Joueurs[$i].ident==$x.ident){
+                $Joueurs[$i].alive=false;
+            }
         }
-    }
 }
 
 ?>
