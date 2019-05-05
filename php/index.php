@@ -32,16 +32,16 @@ if (isset($_POST['valider']) && $_POST['valider'] == 'Connexion') {
             $_SESSION['admin'] = "adm";
         }
 
-        echo "Successfully signed in";
+        $erreur = "Successfully signed in";
         $_SESSION['login'] = $_POST['login'];
         header('Location: lobby.php');
 
 
     }else{
-      echo "You have been banned by an administrator";
+      $erreur = "You have been banned by an administrator";
     }
   } else {
-    echo "Error: Wrong password or login";
+    $erreur = "Error: Wrong password or login";
   }
 	}
 	else {
@@ -54,23 +54,29 @@ if (isset($_POST['valider']) && $_POST['valider'] == 'Connexion') {
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>Log</title>
+  <title>Connexion</title>
   <link rel="stylesheet" href="../css/index.css">
   <link href="https://fonts.googleapis.com/css?family=Londrina+Solid:300" rel="stylesheet"> 
 </head>
   <body>
     <h1 class="titre"> KEKES vs BLAIREAUX </h1>
+	<div>
+      		<select id="select" name='theme' onchange="theme(this.selectedIndex)">
+        		<option value="basique" selected>basique</option>
+        		<option value="sombre">sombre</option>
+        		<option value="vert">vert</option>
+      		</select>
+    	</div>
         <form class="login" name="connexion" method="post">
             Login : <input class="zoneTexte" type="text" name="login"/><br/>
             Mot de passe: <input class="zoneTexte" type="password" name="mdp"/> <br/>
             <input class="bouton" type="submit" name="valider" value="Connexion"/>
         </form>
         <br/>
-        <?php
-        if (isset($erreur))echo $erreur, '<br/><br/>'; 
-        ?>
-    <a href="inscription.php" >
+        <?php if (isset($erreur))echo $erreur, '<br/><br/>'; ?>
+    <a id="lien" href="inscription.php" >
         Créer un nouveau compte
     </a>
+	  <script src="../js/theme.js"></script>
   </body>
 </html>
