@@ -165,6 +165,7 @@ function boarding(idPartie) {
 					break;
 
 				case 3:
+					console.log(Joueurs[cpt]);
 					Joueurs[cpt].position.x = Math.floor((j - largeurPlateau / 2));
 					Joueurs[cpt].position.y = 1;
 					Joueurs[cpt].position.z = Math.floor((i - largeurPlateau / 2));

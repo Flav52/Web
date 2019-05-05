@@ -71,6 +71,7 @@ function init() {
 	// bob.speed=2;
 	Joueurs.push(bob);
 	Joueurs.push(new Joueur(1, 1, 'badger'));
+	Joueurs.push(new Joueur(2, 1, 'badger'));
 	//deplacement
 
 	$.ajax({
