@@ -15,8 +15,8 @@ function arena() {
 
 		var murAreneGauche = new THREE.Mesh(arenaMesh, arenaMat);
 		var murAreneDroite = new THREE.Mesh(arenaMesh, arenaMat);
-		murAreneGauche.name = "LMur";
-		murAreneDroite.name = "TMur";
+		murAreneGauche.name = "Mur";
+		murAreneDroite.name = "Mur";
 		murAreneGauche.receiveShadow = true;
 		murAreneGauche.castShadow = true;
 		murAreneDroite.receiveShadow = true;
@@ -41,8 +41,8 @@ function arena() {
 
 	var mat = new THREE.MeshPhongMaterial({
 		map: texture,
-		opacity: 0.5,
-		color: 0xffffff,
+		opacity: 0.4,
+		// color: 0xffffff,
 		transparent: true,
 		fog: false
 	});
@@ -86,9 +86,9 @@ var Joueurs = [];
 function boarding() {
 
 	var plateau = [
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0, 1, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+		[1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1],
+		[1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0, 1, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1],
 		[0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0],
 		[0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
@@ -103,20 +103,20 @@ function boarding() {
 		[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, , 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
 		[5, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0],
-		[0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0],
-		[0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0],
-		[0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0],
+		[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1],
+		[1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1],
+		[1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1],
+		[1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1],
 		[0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
 		[0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0],
-		[0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 5, 0, 1, 0, 1, 1, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+		[1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 5, 0, 1, 0, 1, 1, 1],
+		[1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1],
 	];
 	//brique
 	var texture = new THREE.TextureLoader().load('./img/concrete1.jpg');
@@ -158,27 +158,27 @@ function boarding() {
 					break;
 
 				case 5:
-					new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "./img/potionSpriteIncognito/potionSprite.png", "PIncognito");
+					scene.add(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "./img/potionSpriteIncognito/potionSprite.png", "PIncognito"));
 					break;
 
 				case 6:
-					new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "./img/potionSpriteView/potionSpriteView.png", "PVision");
+					scene.add(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "./img/potionSpriteView/potionSpriteView.png", "PVision"));
 					break;
 
 				case 7:
-					new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Botte");
+					scene.add(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Botte"));
 					break;
 
 				case 8:
-					new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Brasero");
+					scene.add(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Brasero"));
 					break;
 
 				case 9:
-					new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Cape");
+					scene.add(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Cape"));
 					break;
 
 				case 10:
-					new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Shield");
+					scene.add(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Shield"));
 					break;
 
 				case 11:
