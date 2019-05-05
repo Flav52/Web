@@ -91,10 +91,10 @@ class Pedestal extends THREE.Group {
     }
 
     update() {
-        let tmp=this;
+        let tmp = this;
         this.children.forEach(function (elem) {
-            if (elem.name != "peddestal") {
-                if (tmp.active == true)
+            if (elem.name != "peddestal" && elem.name != "flaque") {
+                if (tmp.active)
                     elem.visible = true;
                 else
                     elem.visible = false;
