@@ -1,5 +1,6 @@
 body{
     background-color: lightgray;
+    color: black;
     text-align: center;
     font-family: 'Londrina Solid', cursive;
 			line-height: 26px;
@@ -63,8 +64,14 @@ input{
     width: 100px;
     height: 30px;
     float: right;
-    margin-right: 50px;
+    margin-right: 100px;
     margin-top: 0px;
+}
+
+.formTheme{
+    block-size: 100px;
+    width: 275px;
+    float : right;
 }
 
 
