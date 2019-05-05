@@ -31,13 +31,26 @@ while ($dir && ($file = readdir($dir)) !== false) {
 
 $tabJoueur = array();
 
+function getThem(){
+  return trim(file_get_contents("selected_theme.txt"));
+}
+
+function setTheme($theme){
+  file_put_contents("selected_theme.txt", $theme);
+}
+
+if(isset($_POST["themeSelect"])){
+  setTheme($_POST["themeSelect"]);
+}
+
 ?>
 
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <title>Lobby</title>
-  <link rel="stylesheet" href="../css/index.css">
+  <link  id="themeStylesheet" rel="stylesheet" href="../css/<?= getThem() ?>.css">
   <link href="https://fonts.googleapis.com/css?family=Londrina+Solid:300" rel="stylesheet">
   <script src="../js/lobby_event.js"></script>
   <script src="../js/jquery.js"></script>
@@ -165,6 +178,6 @@ $tabJoueur = array();
 
     <div id="listePartie"></div>
     <label id="retMsg"></label>
-
+	<script src="../js/theme.js"></script>
 </body>
 </html>
