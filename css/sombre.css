@@ -18,6 +18,13 @@ body{
 #deco{
     font-size: 15px;
     font-style: italic;
+    color: white;
+}
+
+#gestion{
+    font-size: 17px;
+    font-style: italic;
+    color: white;
 }
 
 input{
