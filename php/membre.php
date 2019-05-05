@@ -4,13 +4,17 @@ if (!isset($_SESSION['login'])) {
 	header ('Location: index.php');
 	exit();
 }
+
+function getThem(){
+    return trim(file_get_contents("selected_theme.txt"));
+  }
 ?>
 
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Espace membre</title>
-  <link rel="stylesheet" href="../css/stylesheet.css">
+  <title>Partie</title>
+  <link  id="themeStylesheet" rel="stylesheet" href="../css/<?= getThem() ?>.css">
   <link href="https://fonts.googleapis.com/css?family=Londrina+Solid:300" rel="stylesheet">
 </head>
 <body>

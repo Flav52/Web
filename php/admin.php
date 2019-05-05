@@ -15,11 +15,11 @@ if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
 
-$sql = "SELECT admin FROM Players WHERE nom='$name'";
+$sql = "SELECT admin FROM players WHERE nom='$name'";
 
 if (mysqli_num_rows(mysqli_query($conn, $sql)) == 1) {
 
-    $sql = "SELECT id, nom FROM Players";
+    $sql = "SELECT id, nom FROM players";
     $res = mysqli_query($conn, $sql);
 
     ?>
@@ -31,7 +31,7 @@ if (mysqli_num_rows(mysqli_query($conn, $sql)) == 1) {
         echo "<td>" . $row['nom'] . "</td>";
 
         $idFetch = $row['id'];
-        $sql2 = "SELECT id FROM Bans WHERE id=$idFetch";
+        $sql2 = "SELECT id FROM bans WHERE id='$idFetch'";
 
         if (mysqli_num_rows(mysqli_query($conn, $sql2)) == 1) {
             echo '<td><button id="unbanButton" value="'.$idFetch.'" type="button" onclick="debannir()">Débannir</button></td>';

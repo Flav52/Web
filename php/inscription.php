@@ -29,7 +29,7 @@ if (isset($_POST['valider']) && $_POST['valider'] == 'Valider') {
       }
 
       $pswdH = password_hash($pswd, PASSWORD_BCRYPT,['salt'=>'BnjrHllNhShJtpvtfdcsrg' ]);
-      $sql = "INSERT INTO players (nom, mail, password_hash) VALUES ('$nameP', '$mail', '$pswdH')";
+      $sql = "INSERT INTO players (nom, mail, password_hash, admin) VALUES ('$nameP', '$mail', '$pswdH')";
 
       if (mysqli_query($conn, $sql)) {
           $erreur = "Successfully registered";
@@ -72,13 +72,13 @@ if(isset($_POST["themeSelect"])){
 </head>
   <body>
     <h1 class="titre"> Inscription: </h1>
-	<form action="./" method="post">
+	<form action="./inscription.php" class="formTheme" method="post">
       		<select id="select"   name="themeSelect">
         		<option value="index"  <?= getThem() === "index" ? "selected" : "" ?> >basique</option>
         		<option value="sombre"  <?= getThem() === "sombre" ? "selected" : "" ?> >sombre</option>
         		<option value="vert"  <?= getThem() === "vert" ? "selected" : "" ?> >vert</option>
       		</select>
-      		<input type='submit' class="formTheme" value='Save Theme'>
+      		<input type='submit' value='Save Theme'>
     	</form>
         <form class="newCompte" name="compte" method="post">
             Mail : <input class="zoneTexte" type="text" name="mail"/><br/>

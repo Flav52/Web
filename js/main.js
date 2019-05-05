@@ -42,27 +42,6 @@ var scene;
 var renderer;
 var sky;
 
-//feu
-// var fire;
-// var params = {
-// 	color1: '#ffffff',
-// 	color2: '#ffa000',
-// 	color3: '#000000',
-// 	colorBias: 0.8,
-// 	burnRate: 0.35,
-// 	diffuse: 1.33,
-// 	viscosity: 0.25,
-// 	expansion: -0.25,
-// 	swirl: 50.0,
-// 	drag: 0.35,
-// 	airSpeed: 12.0,
-// 	windX: 0.0,
-// 	windY: 0.75,
-// 	speed: 500.0,
-// 	massConservation: false
-// };
-
-
 //fonctions
 //appel des fonctions
 var facteur = 1;
@@ -139,7 +118,7 @@ function init() {
 			break;
 		}
 	}
-	mainCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 200);
+	mainCamera = new THREE.PerspectiveCamera(75, window.innerWidth / (window.innerHeight-48), 0.01, 200);
 	mainCamera.position.x = Joueurs[crtJoueur].position.x;
 	mainCamera.position.y = Joueurs[crtJoueur].position.y + 1.2;
 	mainCamera.position.z = Joueurs[crtJoueur].position.z;
@@ -152,7 +131,7 @@ function init() {
 
 	//parametrage de la camera du haut
 	var temp = 40;
-	topCamera = new THREE.OrthographicCamera(window.innerWidth / -temp, window.innerWidth / temp, window.innerHeight / temp, window.innerHeight / -temp, 1, 100);
+	topCamera = new THREE.OrthographicCamera(window.innerWidth / -temp, window.innerWidth / temp, (window.innerHeight-48) / temp, (window.innerHeight-48) / -temp, 1, 100);
 	topCamera.position.y = 50;
 	topCamera.position.x = 0;
 	topCamera.position.z = 0;
@@ -184,7 +163,7 @@ function init() {
 
 	renderer.setClearColor(scene.fog.color);
 	renderer.setPixelRatio(window.devicePixelRatio);
-	renderer.setSize(window.innerWidth, window.innerHeight);
+	renderer.setSize(window.innerWidth, (window.innerHeight-48));
 
 	//assignation au contenaire de la page html
 	var container = document.getElementById('container');
@@ -260,8 +239,7 @@ function touchePressee(event) {
 	if (keyboard[37]) { ///q
 		if (topCameraflag == false) {
 			Joueurs[crtJoueur].rotation.y +=Math.PI /2;
-			mainCamera.rotation.y = Joueurs[crtJoueur].rotation.y
-			console.log(Joueurs[crtJoueur].rotation.y);
+			mainCamera.rotation.y = Joueurs[crtJoueur].rotation.y;
 		}
 		requestDeplacement();
 		console.debug('ArrowLeft');
@@ -367,19 +345,19 @@ function generateLights() {
 //ajustement de l'image en fonction de la taille de la fenetre
 function onWindowResize() {
 	if (!topCameraflag) {
-		mainCamera.aspect = window.innerWidth / window.innerHeight;
+		mainCamera.aspect = window.innerWidth / (window.innerHeight-48);
 		mainCamera.updateProjectionMatrix();
 	} else {
 		//topCamera.aspect = window.innerWidth / window.innerHeight;
 		var temp = 40;
-		topCamera = new THREE.OrthographicCamera(window.innerWidth / -temp, window.innerWidth / temp, window.innerHeight / temp, window.innerHeight / -temp, 1, 100);
+		topCamera = new THREE.OrthographicCamera(window.innerWidth / -temp, window.innerWidth / temp,(window.innerHeight-48) / temp, (window.innerHeight-48) / -temp, 1, 100);
 		topCamera.position.y = 50;
 		topCamera.position.x = 0;
 		topCamera.position.z = 0;
 		topCamera.rotation.x = degreesToRadians(-90);
 		topCamera.updateProjectionMatrix();
 	}
-	renderer.setSize(window.innerWidth, window.innerHeight);
+	renderer.setSize(window.innerWidth, (window.innerHeight-48));
 
 }
 

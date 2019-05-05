@@ -1,3 +1,4 @@
+/* SITE */
 body{
     background-color: #172935;
     color: white;
@@ -78,4 +79,66 @@ input{
     block-size: 100px;
     width: 275px;
     float : right;
+}
+
+/* JEU */
+
+#jeu{
+    font-family: 'Londrina Solid', cursive;
+	line-height: 26px;
+	margin: 0px;
+	overflow: hidden;
+}
+
+#enteteJeu{
+	color: white;
+	font-size: 25px;
+	text-align: right;
+	padding-right : 15px;
+	background-color: #172935;
+	height: 48px;
+}
+
+#deco{
+	color: white;
+	font-size: 15px;
+	font-style: italic;
+}
+
+
+#container {
+	box-sizing: border-box;
+	height: 100%;
+	left: 0;
+	margin: 0;
+	/*position: absolute;*/
+	top: 0;
+	width: 100%;
+}
+
+
+#blocker {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+#instructions {
+	width: 100%;
+	height: 100%;
+	font-size: 100px;
+	font-family: 'Courier New';
+	display: -webkit-box;
+	display: -moz-box;
+	-webkit-box-orient: horizontal;
+	-moz-box-orient: horizontal;
+	-webkit-box-pack: center;
+	-moz-box-pack: center;
+	-webkit-box-align: center;
+	-moz-box-align: center;
+	color: #ffffff;
+	text-align: center;
+	cursor: pointer;
+	
 }

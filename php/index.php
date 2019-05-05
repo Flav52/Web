@@ -25,11 +25,11 @@ if (isset($_POST['valider']) && $_POST['valider'] == 'Connexion') {
 
   $query=mysqli_query($conn, $sql);
   if (mysqli_num_rows($query) == 1) {
-    $sqlB = "SELECT id FROM Bans WHERE nom='$name'";
+    $sqlB = "SELECT Id FROM bans WHERE SELECT id FROM players WHERE nom='$name'";
     if(mysqli_num_rows(mysqli_query($conn, $sqlB)) == 0){
         session_start();
 
-        $sql = "SELECT admin FROM Players WHERE nom='$name'";
+        $sql = "SELECT admin FROM Players WHERE nom='$name' AND admin IS NOT NULL";
         if (mysqli_num_rows(mysqli_query($conn, $sql)) == 1){
             $_SESSION['admin'] = "adm";
         }
@@ -75,7 +75,7 @@ if(isset($_POST["themeSelect"])){
 </head>
   <body>
     <h1 class="titre"> KEKES vs BLAIREAUX </h1>
-	<form action="./" method="post">
+	<form action="./" class="formTheme" method="post">
       		<select name='themeSelect' id="select">
         		<option value="index" <?= getThem() === "index" ? "selected" : "" ?> >basique</option>
         		<option value="sombre" <?= getThem() === "sombre" ? "selected" : "" ?> >sombre</option>
