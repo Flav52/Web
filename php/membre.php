@@ -15,7 +15,8 @@ if (!isset($_SESSION['login'])) {
 </head>
 <body>
 	<div class="entete"> <?php echo $_SESSION['login']; ?> <br /> <a id="deco" href="deconnexion.php">Déconnexion</a></div>
-  <input id="idUser" type="hidden" value="<?php echo $_SESSION['login']; ?>">
+    <input id="idUser" type="hidden" value="<?php echo $_SESSION['login']; ?>">
+    <input id="idPartie" type="hidden" value="<?php if(isset($_SESSION['idPartie'])){echo($_SESSION['idPartie']); }?>">
 
 	<div id='container'></div>
     <script src='../js/three.js'></script>

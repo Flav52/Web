@@ -1,23 +1,32 @@
 <?php
 
-    $nomL = $_POST["nomLobby"];     //Nom du lobby
-    $idP = $_POST["idJoueur"];      //Id du joueur créant le lobby
-    $nomP = $_POST["nomJoueur"];      //Id du joueur créant le lobby
+    $nomL = $_POST['namePartie'];     //Nom du lobby
+    $nomP = $_SESSION['login'];      //Id du joueur créant le lobby
 
     //Formation du nom du fichier
-    $fileName = "../json_lobby/lobby_".$nomL.".json";
+    if(isset($_POST["type"])){
+        $fileName = "../json_lobby/priv_lobby_".$nomL.".json";
+    }else{
+        $fileName = "../json_lobby/lobby_".$nomL.".json";
+    }
 
-    $fp = fopen($fileName, "w");
+    if(!file_exists($fileName)){
+        $fp = fopen($fileName, "w");
 
-    $data = array();
-    $data["Joueurs"] = array();
+        $data = array();
+        $data["Joueurs"] = array();
 
-    $joueur = array("id" => $idP, "nom" => $nomP);
+        $joueur = $nomP;
 
-    array_push($data["Joueurs"], $joueur);
+        array_push($data["Joueurs"], $joueur);
 
-    $jData = json_encode($data);
+        $jData = json_encode($data);
 
-    fwrite($fp, $jData);
-    fclose($fp);
-    chmod($fileName, 0766);
+        fwrite($fp, $jData);
+        fclose($fp);
+        chmod($fileName, 0766);
+
+        echo "";
+    }else{
+        echo "Nom deja existant";
+    }

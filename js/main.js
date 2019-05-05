@@ -63,7 +63,7 @@ var facteur = 1;
 var nombreJoueur = 1;
 var IdJoueur = $("#idUser").val();
 var crtJoueur = 0;
-var IdPartie = 0;	//Id de la partie du joueur
+var IdPartie = $("#idPartie").val();	//Id de la partie du joueur
 
 
 init();
@@ -94,6 +94,14 @@ function init(){
 	boarding();
 	generateBoard();
 	arena();
+
+	$.ajax({
+		method: "POST",
+		url: "../ajax_php/ajax_launchGame.php",
+		data: {nomLobby: IdPartie},
+		dataType: "html"
+	});
+
 
 	//Envoi de la création du joueur dans la sauvegarde de la partie
 	$.ajax({
