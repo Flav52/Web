@@ -6,6 +6,13 @@ $idP = $_POST["idP"];
 $posX = $_POST["posX"];
 $posZ = $_POST["posZ"];
 $rotY = $_POST["rotY"];
+$etat = $_POST["etat"];
+$alive = true;
+$visible = true;
+$invincible = false;
+$avatar = $etat;
+$vision = false;
+$vitesse = 1;
 
 //Formation du nom du fichier
 $fileName = "../json_parties/game".$idP.".json";
@@ -26,7 +33,14 @@ $joueur = array(
     "id" => $id,
     "positionX" => $posX,
     "positionZ" => $posZ,
-    "rotationY" => $rotY
+    "rotationY" => $rotY,
+    "alive" => $alive,
+    "visible" => $visible,
+    "invincible" => $invincible,
+    "avatar" => $avatar,
+    "vision" => $vision,
+    "vitesse" => $vitesse
+
 );
 
 array_push($data["Joueurs"], $joueur);

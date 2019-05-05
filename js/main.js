@@ -67,16 +67,22 @@ function init() {
 
 
 
-	var bob = new Joueur(0, 0, 'keke');
+	var bob = new Joueur(IdJoueur, 0, 'keke');
 	// bob.speed=2;
 	Joueurs.push(bob);
 	Joueurs.push(new Joueur(1, 1, 'badger'));
 	//deplacement
 
-
+	$.ajax({
+		method: "POST",
+		url: "../ajax_php/ajax_createMap.php",
+		async: false,
+		data: {idP: IdPartie},
+		dataType: "html"
+	});
 
 	//brouillard 
-	boarding();
+	boarding(IdPartie);
 	generateBoard();
 	arena();
 
@@ -95,11 +101,12 @@ function init() {
 		method: "POST",
 		url: "../ajax_php/ajax_playerSave.php",
 		data: {
-			id: bob.ident,
+			id: IdJoueur,
 			idP: IdPartie,
 			posX: bob.position.x,
 			posZ: bob.position.z,
-			rotY: bob.rotation.y
+			rotY: bob.rotation.y,
+			etat: bob.etat
 		},
 		dataType: "html",
 	});
@@ -464,7 +471,7 @@ function requestDeplacement() {
 			idP: IdPartie,
 			posX: Joueurs[crtJoueur].position.x,
 			posZ: Joueurs[crtJoueur].position.z,
-			rotY: Joueurs[crtJoueur].rotation.y
+			rotY: Joueurs[crtJoueur].rotation.y,
 		},
 		dataType: "html",
 	});
@@ -497,13 +504,13 @@ var rfrsh = setInterval(function () {
 					});
 
 					if (indFind >= 0) {
-						// var _player = Joueurs[indFind];
-						// _player.position.x = element["positionX"];
-						// _player.position.z = element["positionZ"];
-						// _player.rotation.y = parseInt(element["rotationY"]);
-						//console.log("find");
+						var _player = Joueurs[indFind];
+						_player.position.x = element["positionX"];
+						_player.position.z = element["positionZ"];
+						_player.rotation.y = parseInt(element["rotationY"]);
+						console.log("find");
 					} else {
-						var newJ = new Joueur(element["id"], 2, 2, 1, 2);
+						var newJ = new Joueur(element["id"], 2, element["avatar"]);
 
 
 						newJ.position.x = element["positionX"];

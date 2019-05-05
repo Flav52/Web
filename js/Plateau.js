@@ -83,7 +83,7 @@ function generateBoard() {
 
 var Joueurs = [];
 
-function boarding() {
+function boarding(idPartie) {
 
 	var plateau = [
 		[1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1],
@@ -118,6 +118,20 @@ function boarding() {
 		[1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 5, 0, 1, 0, 1, 1, 1],
 		[1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1],
 	];
+
+	$.ajax({
+		method: "POST",
+		url: "../ajax_php/ajax_getMap.php",
+		async: false,
+		data: {idP: idPartie},
+		dataType: "html",
+		success: function(jMap){
+			var jData = JSON.parse(jMap);
+			var jsonData = jData["Carte"];
+			plateau = jsonData[0];
+		}
+	});
+
 	//brique
 	var texture = new THREE.TextureLoader().load('../img/concrete1.jpg');
 	texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
