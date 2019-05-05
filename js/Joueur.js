@@ -1,6 +1,7 @@
 class Joueur extends THREE.Group {
     constructor(cid, cmpt, cEtat) {
         super();
+        this.position.y=-20;
         this.name = "Joueur";
         this.ident = cid;
         this.comptej = cmpt;
