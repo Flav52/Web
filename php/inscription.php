@@ -41,6 +41,19 @@ if (isset($_POST['valider']) && $_POST['valider'] == 'Valider') {
 	$erreur = 'Au moins un des champs est vide.';
 	}
 }
+
+function getThem(){
+  return trim(file_get_contents("selected_theme.txt"));
+}
+
+function setTheme($theme){
+  file_put_contents("selected_theme.txt", $theme);
+}
+
+if(isset($_POST["themeSelect"])){
+  setTheme($_POST["themeSelect"]);
+}
+
 ?>
 
 
@@ -49,18 +62,19 @@ if (isset($_POST['valider']) && $_POST['valider'] == 'Valider') {
 <head>
   <meta charset="utf-8">
   <title>Inscription</title>
-  <link rel="stylesheet" href="../css/index.css">
+  <link id="themeStylesheet" rel="stylesheet" href="../css/<?= getThem() ?>.css">
   <link href="https://fonts.googleapis.com/css?family=Londrina+Solid:300" rel="stylesheet">
 </head>
   <body>
     <h1 class="titre"> Inscription: </h1>
-	<div>
-      		<select id="select" name='theme' onchange="theme(this.selectedIndex)">
-        		<option value="basique" selected>basique</option>
-        		<option value="sombre">sombre</option>
-        		<option value="vert">vert</option>
-     		 </select>
-    	</div>
+	<form action="./" method="post">
+      		<select id="select"   name="themeSelect">
+        		<option value="index"  <?= getThem() === "index" ? "selected" : "" ?> >basique</option>
+        		<option value="sombre"  <?= getThem() === "sombre" ? "selected" : "" ?> >sombre</option>
+        		<option value="vert"  <?= getThem() === "vert" ? "selected" : "" ?> >vert</option>
+      		</select>
+      		<input type='submit' value='Save Theme'>
+    	</form>
         <form class="newCompte" name="compte" method="post">
             Mail : <input class="zoneTexte" type="text" name="mail"/><br/>
             Login : <input class="zoneTexte" type="text" name="login"/><br/>
