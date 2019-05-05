@@ -232,8 +232,6 @@ function touchePressee(event) {
 	keyboard[event.keyCode] = true;
 
 	if (keyboard[32]) { ///q
-		// console.log(Modeles);
-		gong();
 		console.log("Position du joueur ")
 		console.log(Joueurs[crtJoueur].position);
 	}

@@ -129,10 +129,6 @@ function boarding() {
 		color: 0xcccccc,
 		combine: THREE.NormalBlending
 	});
-	var widthOffset = WALLWIDTH / 2;
-	//mettre la base des murs à hauteur 0.
-	var heightOffset = WALLHEIGHT / 2;
-
 	largeurPlateau = plateau[0].length; //donne la taille du premier pan de mur en largeur
 
 	//mise en place des murs
@@ -144,19 +140,13 @@ function boarding() {
 				case 1:
 					var brick = new THREE.Mesh(brickMesh, brickMat);
 					brick.name = "Mur";
-					//positionnement et ajout de la brick
 					brick.position.x = Math.round((j - largeurPlateau / 2));
 					brick.position.y = 2;
 					brick.position.z = Math.round((i - largeurPlateau / 2));
-
-					//console.debug(brick.position);
-					//console.debug(i + " " + j);
 					brick.castShadow = true;
 					brick.receiveShadow = true;
 
 					grilleDeJeu.add(brick);
-					//console.log(brick.position);
-					//collision
 					collision.push(brick);
 					break;
 
@@ -164,8 +154,6 @@ function boarding() {
 					Joueurs[cpt].position.x = Math.floor((j - largeurPlateau / 2));
 					Joueurs[cpt].position.y = 1;
 					Joueurs[cpt].position.z = Math.floor((i - largeurPlateau / 2));
-					//scene.add(Joueurs[cpt]);
-					//console.log(Joueurs[cpt].position);
 					cpt++;
 					break;
 
