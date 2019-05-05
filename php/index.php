@@ -25,7 +25,7 @@ if (isset($_POST['valider']) && $_POST['valider'] == 'Connexion') {
 
   $query=mysqli_query($conn, $sql);
   if (mysqli_num_rows($query) == 1) {
-    $sqlB = "SELECT Id FROM bans WHERE SELECT id FROM players WHERE nom='$name'";
+    $sqlB = "SELECT Id FROM bans WHERE Id=( SELECT id FROM players WHERE nom='$name')";
     if(mysqli_num_rows(mysqli_query($conn, $sqlB)) == 0){
         session_start();
 
