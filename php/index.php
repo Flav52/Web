@@ -19,10 +19,12 @@ if (isset($_POST['valider']) && $_POST['valider'] == 'Connexion') {
   if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
   }
-  $pswdH = password_hash($pswd, PASSWORD_BCRYPT,['salt'=>'BnjrHllNhShJtpvtfdcsrg' ]);
-  $sql = "SELECT pass_hash FROM Players WHERE nom='$name' AND pass_hash='$pswdH'";
 
-  if (mysqli_num_rows(mysqli_query($conn, $sql)) == 1) {
+  $pswdH = password_hash($pswd, PASSWORD_BCRYPT,['salt'=>'BnjrHllNhShJtpvtfdcsrg' ]);
+  $sql = "SELECT password_hash FROM players WHERE nom='$name' AND password_hash='$pswdH'";
+
+  $query=mysqli_query($conn, $sql);
+  if (mysqli_num_rows($query) == 1) {
     $sqlB = "SELECT id FROM Bans WHERE nom='$name'";
     if(mysqli_num_rows(mysqli_query($conn, $sqlB)) == 0){
         session_start();
@@ -34,7 +36,7 @@ if (isset($_POST['valider']) && $_POST['valider'] == 'Connexion') {
 
         $erreur = "Successfully signed in";
         $_SESSION['login'] = $_POST['login'];
-        header('Location: lobby.php');
+        header('Location: ../php/lobby.php');
 
 
     }else{

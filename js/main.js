@@ -69,14 +69,15 @@ var facteur = 1;
 var nombreJoueur = 1;
 var IdJoueur = $("#idUser").val();
 var crtJoueur = 0;
-var IdPartie = $("#idPartie").val();	//Id de la partie du joueur
+var IdPartie = $("#idPartie").val(); //Id de la partie du joueur
 
 
 init();
 animate();
 //initialisation
-function init(){
+function init() {
 
+	preload();
 	//creation de la scene
 	scene = new THREE.Scene();
 	//65 183 234
@@ -103,7 +104,9 @@ function init(){
 	$.ajax({
 		method: "POST",
 		url: "../ajax_php/ajax_launchGame.php",
-		data: {nomLobby: IdPartie},
+		data: {
+			nomLobby: IdPartie
+		},
 		dataType: "html"
 	});
 
@@ -112,7 +115,13 @@ function init(){
 	$.ajax({
 		method: "POST",
 		url: "../ajax_php/ajax_playerSave.php",
-		data: {id: bob.ident, idP: IdPartie, posX: bob.position.x, posZ : bob.position.z, rotY : bob.rotation.y},
+		data: {
+			id: bob.ident,
+			idP: IdPartie,
+			posX: bob.position.x,
+			posZ: bob.position.z,
+			rotY: bob.rotation.y
+		},
 		dataType: "html",
 	});
 
@@ -250,8 +259,9 @@ function touchePressee(event) {
 	}
 	if (keyboard[37]) { ///q
 		if (topCameraflag == false) {
-			Joueurs[crtJoueur].rotation.y += Math.PI * 0.5;
+			Joueurs[crtJoueur].rotation.y +=Math.PI /2;
 			mainCamera.rotation.y = Joueurs[crtJoueur].rotation.y
+			console.log(Joueurs[crtJoueur].rotation.y);
 		}
 		requestDeplacement();
 		console.debug('ArrowLeft');
@@ -259,7 +269,7 @@ function touchePressee(event) {
 
 	if (keyboard[39]) { ///d
 		if (topCameraflag == false) {
-			Joueurs[crtJoueur].rotation.y -= Math.PI * 0.5;
+			Joueurs[crtJoueur].rotation.y -= Math.PI / 2;
 			mainCamera.rotation.y = Joueurs[crtJoueur].rotation.y
 
 		}
@@ -326,7 +336,7 @@ function toucheRelache(event) {
 //lumieres
 function generateLights() {
 	//creation positionnement et ajout des lumieres
-	var lumiere1 = new THREE.AmbientLight(0xfaffbf, 1);
+	var lumiere1 = new THREE.AmbientLight(0xfaffbf, .5);
 	lumiere2 = new THREE.DirectionalLight(0xfaffbf, 1);
 	lumiere2.name = "l1";
 	//lumiere1.position.set(1,1,1);
@@ -406,11 +416,6 @@ function newlight() {
 }
 
 
-
-
-
-
-
 //mise a jour du jeu en permanence
 function animate() {
 	//console.debug(lumiere2.intensity);
@@ -434,21 +439,28 @@ function animate() {
 	stats.update();
 	render();
 	requestAnimationFrame(animate);
-	//
-	//console.log(sprite.position);
-	//
-
-
 }
 
 function render() {
+
+	if (toBuild.length > 0) {
+		//console.log(toBuild);
+		for (var i = 0; i < toBuild.length; i++) {
+			if (toBuild[i].built) {
+				toBuild.splice(i, 1);
+				i--;
+				continue;
+			}
+			toBuild[i].getMesh();
+		}
+	}
 
 	if (topCameraflag) {
 		scene.fog = new THREE.Fog(fogColor, 1);
 		renderer.render(scene, topCamera);
 
 	} else {
-		scene.fog = new THREE.FogExp2(fogColor, 0.00005);
+		scene.fog = new THREE.FogExp2(fogColor, 0.5);
 		renderer.render(scene, mainCamera);
 	}
 
@@ -465,46 +477,54 @@ function radiansToDegrees(radians) {
 
 
 //Envoi du déplacement au serveur
-function requestDeplacement(){
+function requestDeplacement() {
 	$.ajax({
 		method: "POST",
 		url: "../ajax_php/ajax_deplacement.php",
-		data: {id: Joueurs[crtJoueur].ident, idP: IdPartie, posX: Joueurs[crtJoueur].position.x, posZ : Joueurs[crtJoueur].position.z, rotY : Joueurs[crtJoueur].rotation.y},
+		data: {
+			id: Joueurs[crtJoueur].ident,
+			idP: IdPartie,
+			posX: Joueurs[crtJoueur].position.x,
+			posZ: Joueurs[crtJoueur].position.z,
+			rotY: Joueurs[crtJoueur].rotation.y
+		},
 		dataType: "html",
 	});
 }
 
 
 //Actualisation des position des autres joueurs avec intervalle
-var rfrsh = setInterval(function(){
+var rfrsh = setInterval(function () {
 	$.ajax({
 		method: "POST",
 		url: "../ajax_php/ajax_playerRefresh.php",
-		data: {id: IdJoueur, idP: IdPartie},
+		data: {
+			id: IdJoueur,
+			idP: IdPartie
+		},
 		dataType: "html",
-		success: function(playersData){
+		success: function (playersData) {
 			var data = JSON.parse(playersData);
 			var indFind = -1;
 			data = data["Joueurs"];
 
-			console.log(data);
+			//console.log(data);
 
-			data.forEach(function(element){
-				if(element["id"] == IdJoueur){
-				}else{
-					Joueurs.forEach(function(_joueur){
-						if(_joueur.ident == element["id"]){
+			data.forEach(function (element) {
+				if (element["id"] == IdJoueur) {} else {
+					Joueurs.forEach(function (_joueur) {
+						if (_joueur.ident == element["id"]) {
 							indFind = Joueurs.indexOf(_joueur);
 						}
 					});
 
-					if(indFind>=0){
-						var _player = Joueurs[indFind];
-						_player.position.x = element["positionX"];
-						_player.position.z = element["positionZ"];
-						_player.rotation.y = element["rotationY"];
-						console.log("find");
-					}else{
+					if (indFind >= 0) {
+						// var _player = Joueurs[indFind];
+						// _player.position.x = element["positionX"];
+						// _player.position.z = element["positionZ"];
+						// _player.rotation.y = parseInt(element["rotationY"]);
+						//console.log("find");
+					} else {
 						var newJ = new Joueur(element["id"], 2, 2, 1, 2);
 
 
@@ -520,5 +540,6 @@ var rfrsh = setInterval(function(){
 				}
 				render();
 			});
-		}});
+		}
+	});
 }, 300);

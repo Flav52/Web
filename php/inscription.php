@@ -5,12 +5,11 @@ if (isset($_POST['valider']) && $_POST['valider'] == 'Valider') {
   if ((isset($_POST['login']) && !empty($_POST['login'])) && (isset($_POST['mdp']) && !empty($_POST['mdp'])) && (isset($_POST['mail']) && !empty($_POST['mail']))) {
 
       // Insertion
-          $servername = "localhost";
+          $servername = "127.0.0.1";
           $username = "root";
           $password = "";
           $dbname = "projet";
 
-      $conn = mysqli_connect ($servername, $username, $password, $dbname);
 
       $nameP = $_POST['login'];
       $mail = $_POST['mail'];
@@ -18,13 +17,19 @@ if (isset($_POST['valider']) && $_POST['valider'] == 'Valider') {
 
       // Create connection
       $conn = mysqli_connect($servername, $username, $password, $dbname);
+      if (!$conn) {
+        echo "Erreur : Impossible de se connecter à MySQL." . PHP_EOL;
+        echo "Errno de débogage : " . mysqli_connect_errno() . PHP_EOL;
+        echo "Erreur de débogage : " . mysqli_connect_error() . PHP_EOL;
+        exit;
+    }
       // Check connection
       if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
       }
 
       $pswdH = password_hash($pswd, PASSWORD_BCRYPT,['salt'=>'BnjrHllNhShJtpvtfdcsrg' ]);
-      $sql = "INSERT INTO Players (nom, mail,pass_hash) VALUES ('$nameP', '$mail', '$pswdH')";
+      $sql = "INSERT INTO players (nom, mail, password_hash) VALUES ('$nameP', '$mail', '$pswdH')";
 
       if (mysqli_query($conn, $sql)) {
           $erreur = "Successfully registered";
@@ -33,7 +38,7 @@ if (isset($_POST['valider']) && $_POST['valider'] == 'Valider') {
           $_SESSION['login'] = $_POST['login'];
           header('Location: lobby.php');
       } else {
-        $erreur = "Error: This player already exists or is banned";
+        $erreur =  "Error: This player already exists or is banned";
         mysqli_close($conn);
       }
   }
@@ -73,7 +78,7 @@ if(isset($_POST["themeSelect"])){
         		<option value="sombre"  <?= getThem() === "sombre" ? "selected" : "" ?> >sombre</option>
         		<option value="vert"  <?= getThem() === "vert" ? "selected" : "" ?> >vert</option>
       		</select>
-      		<input type='submit' value='Save Theme'>
+      		<input type='submit' class="formTheme" value='Save Theme'>
     	</form>
         <form class="newCompte" name="compte" method="post">
             Mail : <input class="zoneTexte" type="text" name="mail"/><br/>

@@ -21,8 +21,12 @@ function preload() {
 
 
 class Pedestal extends THREE.Group {
+
     constructor(x, z, img, type) {
         super();
+        this.x = x;
+        this.z = z;
+        this.ttb = [];
         this.active = true;
         this.name = type;
         this.built = false;
@@ -37,7 +41,8 @@ class Pedestal extends THREE.Group {
             var sprite = new THREE.Sprite(spriteMaterial);
             sprite.position.set(x, 2.02, z);
             this.add(sprite);
-            loadObj(x, 1, z, '../model/peddestal/', 'peddestal.mtl', 'peddestal.obj', '../model/peddestal/peddestalTex.png', new THREE.Vector3(0.3, 0.17, 0.3));
+            this.ttb[0] = 'peddestal';
+            this.getMesh();
         } else
         if (this.name == "PVision") {
             var spriteMap = new THREE.TextureLoader().load(img);
@@ -82,6 +87,7 @@ class Pedestal extends THREE.Group {
 
             scene.add(this);
         }
+
     }
 
     update() {
@@ -151,7 +157,6 @@ function loadObj(x, y, z, path, mtl, obj, tex, Scale) {
         materials.preload();
         new THREE.OBJLoader(manager).setMaterials(materials).setPath(path).load(obj, function (object) { //Object === GROUP
             object.scale.set(Scale.x, Scale.y, Scale.z);
-            object.position.set(x, y, z);
             var mesh = object.children[0];
             mesh.scale.set(Scale.x, Scale.y, Scale.z);
             mesh.position.set(x, y, z);
@@ -160,9 +165,6 @@ function loadObj(x, y, z, path, mtl, obj, tex, Scale) {
             });
             mesh.castShadow = true;
             mesh.receiveShadow = true;
-            mesh.material= new THREE.MeshPhongMaterial({
-               combine: THREE.NormalBlending
-            });
             var mat = mesh.material;
             mat.map = new THREE.TextureLoader(manager).load(tex);
             var str = obj.substring(0, obj.indexOf("."));
@@ -170,10 +172,10 @@ function loadObj(x, y, z, path, mtl, obj, tex, Scale) {
         }, onProgress, onError);
     });
     var onProgress = function (xhr) {
-        if (xhr.lengthComputable) {
-            var percentComplete = xhr.loaded / xhr.total * 100;
-            console.log(Math.round(percentComplete, 2) + '% chargé');
-        }
+        // if (xhr.lengthComputable) {
+        //     var percentComplete = xhr.loaded / xhr.total * 100;
+        //     console.log(Math.round(percentComplete, 2) + '% chargé');
+        // }
     };
     var onError = function (error) {
         console.log("Erreur : " + error.target);

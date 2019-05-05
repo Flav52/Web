@@ -1,7 +1,7 @@
 function arena() {
 	var halfSize = taillePlateau / 2;
 	var value = 1;
-	var texture = new THREE.TextureLoader().load('./img/door.jpg');
+	var texture = new THREE.TextureLoader().load('../img/door.jpg');
 	texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 	texture.repeat.set(31, 1);
 
@@ -15,8 +15,8 @@ function arena() {
 
 		var murAreneGauche = new THREE.Mesh(arenaMesh, arenaMat);
 		var murAreneDroite = new THREE.Mesh(arenaMesh, arenaMat);
-		murAreneGauche.name = "Mur";
-		murAreneDroite.name = "Mur";
+		murAreneGauche.name = "LMur";
+		murAreneDroite.name = "TMur";
 		murAreneGauche.receiveShadow = true;
 		murAreneGauche.castShadow = true;
 		murAreneDroite.receiveShadow = true;
@@ -35,14 +35,14 @@ function arena() {
 		value = -1;
 	}
 	var sphere = new THREE.CylinderGeometry(90, 90, 90, 50, 1, 1, 0);
-	var texture = new THREE.TextureLoader().load('./img/cloud3.png');
+	var texture = new THREE.TextureLoader().load('../img/cloud3.png');
 	texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 	texture.repeat.set(3, 1);
 
 	var mat = new THREE.MeshPhongMaterial({
 		map: texture,
-		opacity: 0.4,
-		// color: 0xffffff,
+		opacity: 0.5,
+		color: 0xffffff,
 		transparent: true,
 		fog: false
 	});
@@ -56,7 +56,7 @@ function arena() {
 }
 
 function generateBoard() {
-	var texture = new THREE.TextureLoader().load('./img/snowcrack.jpg');
+	var texture = new THREE.TextureLoader().load('../img/snowcrack.jpg');
 
 	texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 	texture.repeat.set(taillePlateau * 1.73, taillePlateau * 1.73);
@@ -119,7 +119,7 @@ function boarding() {
 		[1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1],
 	];
 	//brique
-	var texture = new THREE.TextureLoader().load('./img/concrete1.jpg');
+	var texture = new THREE.TextureLoader().load('../img/concrete1.jpg');
 	texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 	texture.repeat.set(1, 1);
 
@@ -158,32 +158,32 @@ function boarding() {
 					break;
 
 				case 5:
-					scene.add(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "./img/potionSpriteIncognito/potionSprite.png", "PIncognito"));
+					new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "../img/potionSpriteIncognito/potionSprite.png", "PIncognito");
 					break;
 
 				case 6:
-					scene.add(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "./img/potionSpriteView/potionSpriteView.png", "PVision"));
+					new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "../img/potionSpriteView/potionSpriteView.png", "PVision");
 					break;
 
 				case 7:
-					scene.add(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Botte"));
+					new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Botte");
 					break;
 
 				case 8:
-					scene.add(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Brasero"));
+					new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Brasero");
 					break;
 
 				case 9:
-					scene.add(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Cape"));
+					new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Cape");
 					break;
 
 				case 10:
-					scene.add(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Shield"));
+					new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Shield");
 					break;
 
 				case 11:
-				new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Flaque");
-				break;
+					new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Flaque");
+					break;
 
 			}
 		}

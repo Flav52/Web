@@ -37,7 +37,6 @@ if (!isset($_SESSION['login'])) {
     <script src="../js/Fire.js"></script>
 
     <script src="../js/Pedestal.js"></script>
-    <script src="../js/Objet.js"></script>
     <script src="../js/Plateau.js"></script>
     <script src="../js/Joueur.js"></script>
     <script src="../js/main.js"></script>
