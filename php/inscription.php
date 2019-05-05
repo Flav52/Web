@@ -29,7 +29,7 @@ if (isset($_POST['valider']) && $_POST['valider'] == 'Valider') {
       }
 
       $pswdH = password_hash($pswd, PASSWORD_BCRYPT,['salt'=>'BnjrHllNhShJtpvtfdcsrg' ]);
-      $sql = "INSERT INTO players (nom, mail, password_hash, admin) VALUES ('$nameP', '$mail', '$pswdH')";
+      $sql = "INSERT INTO players (nom, mail, password_hash) VALUES ('$nameP', '$mail', '$pswdH')";
 
       if (mysqli_query($conn, $sql)) {
           $erreur = "Successfully registered";
