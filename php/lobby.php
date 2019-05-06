@@ -116,7 +116,7 @@ if(isset($_POST["themeSelect"])){
 
               if(isset($_POST['type'])){ echo "Private"; }
 
-              print("<ul class='players'>");
+              print("<ul  style=\"list-style-type:none;\" class='players'>");
               for ($i = 0; $i < count($tabJoueur); $i++){
                 echo "<li>"; echo $tabJoueur[$i]; echo "</li>";
               }

@@ -34,6 +34,7 @@ $joueur = array(
     "positionX" => $posX,
     "positionZ" => $posZ,
     "rotationY" => $rotY,
+    "etat" => $etat,
     "alive" => $alive,
     "visible" => $visible,
     "invincible" => $invincible,
