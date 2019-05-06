@@ -83,7 +83,7 @@ function generateBoard() {
 
 var Joueurs = [];
 
-function boarding(idPartie) {
+function boarding(idPartie, equipe, numEquipe) {
 
 	var plateau = [
 		[1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1],
@@ -146,6 +146,8 @@ function boarding(idPartie) {
 	largeurPlateau = plateau[0].length; //donne la taille du premier pan de mur en largeur
 
 	//mise en place des murs
+	var cptKeke = 0;
+	var cptbadger = 0;
 	var cpt = 0;
 	for (var i = 0; i < largeurPlateau; i++) {
 		for (var j = 0; j < plateau[i].length; j++) {
@@ -165,11 +167,21 @@ function boarding(idPartie) {
 					break;
 
 				case 3:
-					console.log(Joueurs[cpt]);
-					Joueurs[cpt].position.x = Math.floor((j - largeurPlateau / 2));
-					Joueurs[cpt].position.y = 1;
-					Joueurs[cpt].position.z = Math.floor((i - largeurPlateau / 2));
-					cpt++;
+					if(equipe=="keke" && numEquipe==cptKeke){
+						Joueurs[0].position.x = Math.floor((j - largeurPlateau / 2));
+						Joueurs[0].position.y = 1;
+						Joueurs[0].position.z = Math.floor((i - largeurPlateau / 2));
+					}
+					cptKeke++;
+					break;
+
+				case 4:
+					if(equipe=="badger" && numEquipe==cptbadger){
+						Joueurs[0].position.x = Math.floor((j - largeurPlateau / 2));
+						Joueurs[0].position.y = 1;
+						Joueurs[0].position.z = Math.floor((i - largeurPlateau / 2));
+					}
+					cptbadger++;
 					break;
 
 				case 5:

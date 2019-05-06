@@ -65,6 +65,8 @@ function init() {
 	//scene.add(new Pedestal(0, -5, "./img/potionSprite.png", "Ppotion"));
 
 	var equipe = "keke";
+	var numEquipe = 0;
+
 	$.ajax({
 		method: "POST",
 		async: false,
@@ -74,17 +76,18 @@ function init() {
 			nomLobby: IdPartie
 		},
 		dataType: "html",
-		success: function(role){
-			equipe = role;
+		success: function(infoJoueur){
+			role = JSON.parse(infoJoueur);
+			equipe = role[0];
+			numEquipe = role[1];
 		}
 	});
 	console.log(equipe);
+	console.log(numEquipe);
 
 	var bob = new Joueur(IdJoueur, 0, equipe);
 	// bob.speed=2;
 	Joueurs.push(bob);
-	Joueurs.push(new Joueur(1, 1, 'badger'));
-	Joueurs.push(new Joueur(2, 1, 'badger'));
 	//deplacement
 
 	$.ajax({
@@ -96,7 +99,7 @@ function init() {
 	});
 
 	//brouillard 
-	boarding(IdPartie);
+	boarding(IdPartie, equipe, numEquipe);
 	generateBoard();
 	arena();
 
@@ -519,16 +522,17 @@ var rfrsh = setInterval(function () {
 						_player.position.x = element["positionX"];
 						_player.position.z = element["positionZ"];
 						_player.rotation.y = parseFloat(element["rotationY"]);
-						_player.etat = element["etat"];
+						_player.etat = element["avatar"];
 					} else {
 						var newJ = new Joueur(element["id"], 2, element["avatar"]);
 
+						console.log(element["id"]);
 
 						newJ.position.x = element["positionX"];
 						newJ.position.z = element["positionZ"];
 						newJ.position.y = 1;
 						newJ.rotation.y = element["rotationY"];
-						newJ.etat = element["etat"];
+						newJ.etat = element["avatar"];
 
 						Joueurs.push(newJ);
 						scene.add(newJ);

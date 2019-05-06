@@ -28,15 +28,15 @@ if(!file_exists($fileName)){
     }
 
     $Proba += fill(70,1,0); //Murs
-    $Proba += fill(3,3,71); // KEKE
-    $Proba += fill(2,4,75); // Blaireaux
-    $Proba += fill(2,5,80); // potInco
-    $Proba += fill(2,6,83); // potView
-    $Proba += fill(1,7,86); // Bottes
-    $Proba += fill(5,8,88); // Brasero
-    $Proba += fill(1,9,94); // Cape
-    $Proba += fill(1,10,96); //shield
-    $Proba += fill(5,11,98); //flaque
+    $Proba += fill(10,3,71); // KEKE
+    $Proba += fill(9,4,82); // Blaireaux
+    $Proba += fill(2,5,92); // potInco
+    $Proba += fill(2,6,95); // potView
+    $Proba += fill(1,7,98); // Bottes
+    $Proba += fill(5,8,100); // Brasero
+    $Proba += fill(1,9,106); // Cape
+    $Proba += fill(2,10,108); //shield
+    $Proba += fill(5,11,114); //flaque
 
 
     function newObj($nbr,$x,$carte){
