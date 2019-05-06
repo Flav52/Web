@@ -518,9 +518,8 @@ var rfrsh = setInterval(function () {
 						var _player = Joueurs[indFind];
 						_player.position.x = element["positionX"];
 						_player.position.z = element["positionZ"];
-						_player.rotation.y = parseInt(element["rotationY"]);
+						_player.rotation.y = parseFloat(element["rotationY"]);
 						_player.etat = element["etat"];
-						console.log("find");
 					} else {
 						var newJ = new Joueur(element["id"], 2, element["avatar"]);
 
@@ -533,7 +532,6 @@ var rfrsh = setInterval(function () {
 
 						Joueurs.push(newJ);
 						scene.add(newJ);
-						console.log("new");
 					}
 				}
 				render();
