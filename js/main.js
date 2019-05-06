@@ -64,7 +64,14 @@ function init() {
 	//////////////////////////////
 	//scene.add(new Pedestal(0, -5, "./img/potionSprite.png", "Ppotion"));
 
-
+	$.ajax({
+		method: "POST",
+		url: "../ajax_php/ajax_launchGame.php",
+		data: {
+			nomLobby: IdPartie
+		},
+		dataType: "html"
+	});
 
 
 	var bob = new Joueur(IdJoueur, 0, 'keke');
@@ -86,15 +93,6 @@ function init() {
 	boarding(IdPartie);
 	generateBoard();
 	arena();
-
-	$.ajax({
-		method: "POST",
-		url: "../ajax_php/ajax_launchGame.php",
-		data: {
-			nomLobby: IdPartie
-		},
-		dataType: "html"
-	});
 
 
 	//Envoi de la création du joueur dans la sauvegarde de la partie
