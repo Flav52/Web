@@ -64,17 +64,23 @@ function init() {
 	//////////////////////////////
 	//scene.add(new Pedestal(0, -5, "./img/potionSprite.png", "Ppotion"));
 
+	var equipe = "keke";
 	$.ajax({
 		method: "POST",
+		async: false,
 		url: "../ajax_php/ajax_launchGame.php",
 		data: {
+			idJ: IdJoueur,
 			nomLobby: IdPartie
 		},
-		dataType: "html"
+		dataType: "html",
+		success: function(role){
+			equipe = role;
+		}
 	});
+	console.log(equipe);
 
-
-	var bob = new Joueur(IdJoueur, 0, 'keke');
+	var bob = new Joueur(IdJoueur, 0, equipe);
 	// bob.speed=2;
 	Joueurs.push(bob);
 	Joueurs.push(new Joueur(1, 1, 'badger'));
@@ -495,7 +501,9 @@ var rfrsh = setInterval(function () {
 			//console.log(data);
 
 			data.forEach(function (element) {
-				if (element["id"] == IdJoueur) {} else {
+				if (element["id"] == IdJoueur) {
+					$("#team").text(" ["+element["etat"]+"]");
+				} else {
 					Joueurs.forEach(function (_joueur) {
 						if (_joueur.ident == element["id"]) {
 							indFind = Joueurs.indexOf(_joueur);
@@ -507,6 +515,7 @@ var rfrsh = setInterval(function () {
 						_player.position.x = element["positionX"];
 						_player.position.z = element["positionZ"];
 						_player.rotation.y = parseInt(element["rotationY"]);
+						_player.etat = element["etat"];
 						console.log("find");
 					} else {
 						var newJ = new Joueur(element["id"], 2, element["avatar"]);
@@ -516,6 +525,7 @@ var rfrsh = setInterval(function () {
 						newJ.position.z = element["positionZ"];
 						newJ.position.y = 1;
 						newJ.rotation.y = element["rotationY"];
+						newJ.etat = element["etat"];
 
 						Joueurs.push(newJ);
 						scene.add(newJ);

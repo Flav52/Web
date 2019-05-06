@@ -2,7 +2,7 @@
 
 //Recuperation du POST
 $nomL = $_POST["nomLobby"];     //Nom du lobby
-
+$idJoueur = $_POST["idJ"];
 
 //Formation du nom du fichier
 $fn = "../json_lobby/lobby_".$nomL.".json";
@@ -17,11 +17,36 @@ if(file_exists($fn)){
     $dtArray = array();
     $dtArray = json_decode($jsonArray, true);
 
-    $dtArray["launch"] = "go";
+    if(!isset($dtArray["keke"])){
+        $dtArray["launch"] = "goooo";
+        $arrayJ = $dtArray["Joueurs"];
+        shuffle($arrayJ);
+        $nbP = sizeof($dtArray["Joueurs"]);
+
+        $sep = floor($nbP/2)+1;
+        $keke = array();
+        $badger = array();
+
+        for($i=0; $i<$nbP; $i++){
+            if($sep>$i){
+                array_push($keke, $arrayJ[$i]);
+            }else{
+                array_push($badger, $arrayJ[$i]);
+            }
+        }
+
+        $dtArray["keke"] = $keke;
+        $dtArray["badger"] = $badger;
+    }
 
     $jData = json_encode($dtArray);
 
     file_put_contents($fn, $jData);
 
-    echo $jData;
+    $role = "badger";
+    if(in_array($idJoueur, $dtArray["keke"])){
+        $role = "keke";
+    }
+
+    echo $role;
 }

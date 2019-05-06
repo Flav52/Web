@@ -138,7 +138,7 @@ if(isset($_POST["themeSelect"])){
                 require_once("../ajax_php/ajax_lobbyUpdate.php");
                 print("<h3> $a </h3>");
                 print("<textarea id='gameName' hidden>$a</textarea>");
-                print("<ul class='players'>");
+                print("<ul style=\"list-style-type:none;\" class='players'>");
                 for ($i = 0; $i < count($tabJoueur); $i++){
                   echo "<li>"; echo $tabJoueur[$i]; echo "</li>";
                 }  
@@ -156,7 +156,7 @@ if(isset($_POST["themeSelect"])){
               if($a == $tabPartieSpec[$k]){
                 $cpt = $cpt + 1;
                 print("<h3 id='gameName' value='$a'> $a </h3>");
-                print("<ul class='players'>");
+                print("<ul style=\"list-style-type:none;\" class='players'>");
                 for ($i = 0; $i < count($tabJoueur); $i++){
                   echo "<li>"; echo $tabJoueur[$i]; echo "</li>";
                 }  
