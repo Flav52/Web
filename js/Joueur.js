@@ -1,10 +1,11 @@
 class Joueur extends THREE.Group {
-    constructor(cid, cmpt, cEtat) {
+    constructor(cid, cmpt, cEtat, cTeam) {
         super();
         this.position.set(100+cid,-20,cid);
         this.name = "Joueur";
         this.ident = cid;
         this.comptej = cmpt;
+        this.equipe = cTeam;
         this.etat = cEtat;
         this.idMesh = null;
         this.built = false;
@@ -50,7 +51,6 @@ class Joueur extends THREE.Group {
             //  msh.rotation.set(temp.rotation);
             this.add(msh);
             this.idMesh = msh.id;
-
         }
     }
 
@@ -73,7 +73,7 @@ class Joueur extends THREE.Group {
 function gong() {
     var audioLoader = new THREE.AudioLoader();
     var sound1 = new THREE.Audio(listener);
-    audioLoader.load('sound/gong-8.mp3', function (buffer) {
+    audioLoader.load('../sound/gong-8.mp3', function (buffer) {
         sound1.setBuffer(buffer);
         sound1.play();
     });

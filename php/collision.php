@@ -1,5 +1,5 @@
 <?php
-
+/*
 $Map;
 $Joueurs;
 $Objets;
@@ -95,4 +95,4 @@ function kill($x){
         }
 }
 
-?>
+?>*/

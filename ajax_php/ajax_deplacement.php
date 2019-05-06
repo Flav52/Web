@@ -10,8 +10,6 @@ $rotY = $_POST["rotY"];
 //Formation du nom du fichier
 $fileName = "../json_parties/game".$idP.".json";
 
-// oui
-
 if(file_exists($fileName)) {
 
     $jsonData = file_get_contents($fileName);
@@ -28,8 +26,6 @@ if(file_exists($fileName)) {
     }
 
     $jData = json_encode($data);
-
-    echo $jData;
 
     file_put_contents($fileName, $jData);
 }

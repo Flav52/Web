@@ -2,9 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd88008d-eb74-4e73-9ce6-7416293b8214" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/ajax_php/ajax_gong.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajax_php/ajax_checkGame.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax_php/ajax_checkGame.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajax_php/ajax_deplacement.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax_php/ajax_deplacement.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajax_php/ajax_launchGame.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax_php/ajax_launchGame.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajax_php/ajax_playerRefresh.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax_php/ajax_playerRefresh.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ajax_php/ajax_playerSave.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax_php/ajax_playerSave.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/Plateau.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Plateau.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/Joueur.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Joueur.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/lobby_event.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/lobby_event.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/collision.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/collision.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/membre.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/membre.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,10 +24,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ajax_php/ajax_deplacement.php">
+        <entry file="file://$PROJECT_DIR$/php/membre.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+            <state relative-caret-position="286">
+              <caret line="18" column="7" lean-forward="true" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -26,17 +35,35 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="432" column="13" selection-start-line="432" selection-start-column="13" selection-end-line="432" selection-end-column="13" />
+            <state relative-caret-position="161">
+              <caret line="268" column="53" lean-forward="true" selection-start-line="268" selection-start-column="53" selection-end-line="268" selection-end-column="53" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ajax_php/ajax_gong.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/js/Plateau.js">
+        <entry file="file://$PROJECT_DIR$/js/Joueur.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="29" column="31" lean-forward="true" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ajax_php/ajax_deplacement.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="374">
-              <caret line="166" column="23" lean-forward="true" selection-start-line="166" selection-start-column="23" selection-end-line="166" selection-end-column="23" />
+              <caret line="22" column="56" lean-forward="true" selection-end-line="30" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -44,17 +71,35 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ajax_php/ajax_playerSave.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="41" column="25" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
+            <state relative-caret-position="595">
+              <caret line="35" column="25" lean-forward="true" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/Joueur.js">
+        <entry file="file://$PROJECT_DIR$/ajax_php/ajax_getMap.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="27" lean-forward="true" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="27" />
+            <state relative-caret-position="255">
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ajax_php/ajax_createMap.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="714">
+              <caret line="81" column="24" lean-forward="true" selection-start-line="81" selection-start-column="24" selection-end-line="81" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ajax_php/ajax_checkGame.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -68,6 +113,14 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>active</find>
+      <find>Joueur</find>
+      <find>Joueur(</find>
+      <find>gong</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -79,19 +132,24 @@
         <option value="$PROJECT_DIR$/js/admin_event.js" />
         <option value="$PROJECT_DIR$/ajax_php/ajax_ban.php" />
         <option value="$PROJECT_DIR$/php/index.php" />
-        <option value="$PROJECT_DIR$/ajax_php/ajax_checkGame.php" />
         <option value="$PROJECT_DIR$/ajax_php/ajax_lobbySave.php" />
         <option value="$PROJECT_DIR$/ajax_php/ajax_lobbyUpdate.php" />
         <option value="$PROJECT_DIR$/index.php" />
-        <option value="$PROJECT_DIR$/ajax_php/ajax_launchGame.php" />
         <option value="$PROJECT_DIR$/ajax_php/ajax_lobbyRefresh.php" />
-        <option value="$PROJECT_DIR$/js/lobby_event.js" />
         <option value="$PROJECT_DIR$/php/lobby.php" />
-        <option value="$PROJECT_DIR$/php/membre.php" />
-        <option value="$PROJECT_DIR$/js/main.js" />
-        <option value="$PROJECT_DIR$/js/Plateau.js" />
         <option value="$PROJECT_DIR$/ajax_php/ajax_createMap.php" />
+        <option value="$PROJECT_DIR$/js/Plateau.js" />
+        <option value="$PROJECT_DIR$/php/collision.php" />
+        <option value="$PROJECT_DIR$/ajax_php/ajax_playerRefresh.php" />
+        <option value="$PROJECT_DIR$/ajax_php/ajax_launchGame.php" />
         <option value="$PROJECT_DIR$/ajax_php/ajax_playerSave.php" />
+        <option value="$PROJECT_DIR$/ajax_php/ajax_checkGame.php" />
+        <option value="$PROJECT_DIR$/ajax_php/ajax_deplacement.php" />
+        <option value="$PROJECT_DIR$/php/membre.php" />
+        <option value="$PROJECT_DIR$/js/lobby_event.js" />
+        <option value="$PROJECT_DIR$/ajax_php/ajax_gong.php" />
+        <option value="$PROJECT_DIR$/js/main.js" />
+        <option value="$PROJECT_DIR$/js/Joueur.js" />
       </list>
     </option>
   </component>
@@ -133,6 +191,11 @@
               <item name="Web" type="b2602c69:ProjectViewProjectNode" />
               <item name="Web" type="462c0819:PsiDirectoryNode" />
               <item name="php" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Web" type="462c0819:PsiDirectoryNode" />
+              <item name="sound" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -189,7 +252,7 @@
       <workItem from="1556902278918" duration="1398000" />
       <workItem from="1556907912424" duration="1200000" />
       <workItem from="1556973543469" duration="31989000" />
-      <workItem from="1557093234880" duration="5459000" />
+      <workItem from="1557093234880" duration="30624000" />
     </task>
     <task id="LOCAL-00001" summary="Alexandre&#10;&#10;Les logins, bans et debans sont fonctionnels, lobby en cours.">
       <created>1556979122368</created>
@@ -209,7 +272,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40046000" />
+    <option name="totallyTimeSpent" value="65211000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -236,7 +299,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32936078" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32936078" />
-      <window_info anchor="bottom" id="File Transfer" order="9" sideWeight="0.49946696" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="File Transfer" order="9" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
       <window_info anchor="bottom" id="Terminal" order="11" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50053304" side_tool="true" weight="0.32936078" />
@@ -312,24 +375,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/admin_event.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="25" lean-forward="true" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/php/admin.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="554">
           <caret line="38" column="62" selection-start-line="38" selection-start-column="62" selection-end-line="38" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ajax_php/ajax_playerRefresh.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>
@@ -347,13 +396,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ajax_php/ajax_lobbySave.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="24" lean-forward="true" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ajax_php/ajax_lobbyUpdate.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -368,87 +410,141 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ajax_php/ajax_launchGame.php">
+    <entry file="file://$PROJECT_DIR$/js/Pedestal.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="16" lean-forward="true" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
+        <state relative-caret-position="176">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/lobby_event.js">
+    <entry file="file://$PROJECT_DIR$/php/collision.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="62" selection-start-line="21" selection-start-column="62" selection-end-line="21" selection-end-column="62" />
+        <state relative-caret-position="1649">
+          <caret line="97" column="4" selection-start-line="97" selection-start-column="4" selection-end-line="97" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ajax_php/ajax_playerRefresh.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="69" column="13" lean-forward="true" selection-start-line="69" selection-start-column="13" selection-end-line="69" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ajax_php/ajax_lobbyRefresh.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+        <state relative-caret-position="289">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ajax_php/ajax_lobbySave.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="44" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/php/lobby.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="537">
-          <caret line="132" column="16" selection-start-line="132" selection-start-column="16" selection-end-line="132" selection-end-column="16" />
+        <state relative-caret-position="966">
+          <caret line="156" column="32" lean-forward="true" selection-start-line="156" selection-start-column="32" selection-end-line="156" selection-end-column="32" />
+          <folding>
+            <element signature="n#style#0;n#ul#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#ul#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#ul#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/php/membre.php">
+    <entry file="file://$PROJECT_DIR$/ajax_php/ajax_launchGame.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="119" lean-forward="true" selection-start-line="22" selection-start-column="119" selection-end-line="22" selection-end-column="119" />
+        <state relative-caret-position="680">
+          <caret line="40" column="5" lean-forward="true" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ajax_php/ajax_deplacement.php">
+    <entry file="file://$PROJECT_DIR$/ajax_php/ajax_getMap.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
+        <state relative-caret-position="255">
           <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="432" column="13" selection-start-line="432" selection-start-column="13" selection-end-line="432" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ajax_php/ajax_createMap.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="31" lean-forward="true" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+        <state relative-caret-position="714">
+          <caret line="81" column="24" lean-forward="true" selection-start-line="81" selection-start-column="24" selection-end-line="81" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ajax_php/ajax_checkGame.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="40" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
+        <state relative-caret-position="238">
+          <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/Joueur.js">
+    <entry file="file://$PROJECT_DIR$/js/admin_event.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="27" lean-forward="true" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="27" />
+        <state relative-caret-position="136">
+          <caret line="8" column="25" lean-forward="true" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/lobby_event.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="77" column="68" lean-forward="true" selection-start-line="77" selection-start-column="68" selection-end-line="77" selection-end-column="68" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ajax_php/ajax_playerSave.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="41" column="25" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
+        <state relative-caret-position="595">
+          <caret line="35" column="25" lean-forward="true" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ajax_php/ajax_deplacement.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="56" lean-forward="true" selection-end-line="30" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/Plateau.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="166" column="23" lean-forward="true" selection-start-line="166" selection-start-column="23" selection-end-line="166" selection-end-column="23" />
+        <state relative-caret-position="3026">
+          <caret line="178" column="65" selection-start-line="178" selection-start-column="65" selection-end-line="178" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php/membre.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="18" column="7" lean-forward="true" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ajax_php/ajax_gong.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="268" column="53" lean-forward="true" selection-start-line="268" selection-start-column="53" selection-end-line="268" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/Joueur.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="29" column="31" lean-forward="true" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
         </state>
       </provider>
     </entry>

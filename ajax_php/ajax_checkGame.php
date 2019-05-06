@@ -12,5 +12,4 @@ while ($dir && ($file = readdir($dir)) !== false) {
     }
 }
 
-
 echo json_encode($matchFile);

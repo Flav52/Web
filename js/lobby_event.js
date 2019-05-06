@@ -1,6 +1,5 @@
 function checkGame(){
     var idPartie = $("#gameName").text();
-    console.log(idPartie);
     $.ajax({
         method: "POST",
         url: "../ajax_php/ajax_lobbyRefresh.php",

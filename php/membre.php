@@ -18,7 +18,7 @@ function getThem(){
   <link href="https://fonts.googleapis.com/css?family=Londrina+Solid:300" rel="stylesheet">
 </head>
 <body>
-	<div class="entete"> <?php echo $_SESSION['login']; ?><br/> <span id="team"></span> <br /> <a id="deco" href="deconnexion.php">Déconnexion</a></div>
+	<div class="entete"> <?php echo $_SESSION['login']; ?><br/> <span id="chrono"></span> <span id="team"></span> <br /> <a id="deco" href="deconnexion.php">Déconnexion</a></div>
     <input id="idUser" type="hidden" value="<?php echo $_SESSION['login']; ?>">
     <input id="idPartie" type="hidden" value="<?php if(isset($_SESSION['idPartie'])){echo($_SESSION['idPartie']); }?>">
 

@@ -19,7 +19,7 @@ if(file_exists($fn)){
     $dtArray = json_decode($jsonArray, true);
 
     if(!isset($dtArray["keke"])){
-        $dtArray["launch"] = "goooo";
+        $dtArray["launch"] = "go";
         $arrayJ = $dtArray["Joueurs"];
         shuffle($arrayJ);
         $nbP = sizeof($dtArray["Joueurs"]);

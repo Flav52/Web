@@ -85,7 +85,7 @@ function init() {
 	console.log(equipe);
 	console.log(numEquipe);
 
-	var bob = new Joueur(IdJoueur, 0, equipe);
+	var bob = new Joueur(IdJoueur, 0, equipe, equipe);
 	// bob.speed=2;
 	Joueurs.push(bob);
 	//deplacement
@@ -505,11 +505,17 @@ var rfrsh = setInterval(function () {
 			var indFind = -1;
 			data = data["Joueurs"];
 
-			//console.log(data);
+			console.log(data);
 
 			data.forEach(function (element) {
 				if (element["id"] == IdJoueur) {
 					$("#team").text(" ["+element["etat"]+"]");
+					if(!element["alive"]){
+						document.removeEventListener('keydown', touchePressee);
+						document.removeEventListener('keyup', toucheRelache);
+						topCameraflag = true;
+						scene.remove(Joueurs[0]);
+					}
 				} else {
 					Joueurs.forEach(function (_joueur) {
 						if (_joueur.ident == element["id"]) {
@@ -519,23 +525,32 @@ var rfrsh = setInterval(function () {
 
 					if (indFind >= 0) {
 						var _player = Joueurs[indFind];
-						_player.position.x = element["positionX"];
-						_player.position.z = element["positionZ"];
-						_player.rotation.y = parseFloat(element["rotationY"]);
-						_player.etat = element["avatar"];
+						if(element["alive"]){
+							_player.position.x = element["positionX"];
+							_player.position.z = element["positionZ"];
+							_player.rotation.y = parseFloat(element["rotationY"]);
+							_player.etat = element["avatar"];
+							_player.equipe = element["etat"];
+							_player.updateMesh();
+						}else{
+							scene.remove(_player);
+							var indexRem = Joueurs.indexOf(_player);
+							Joueurs.splice(indexRem, 1);
+						}
 					} else {
-						var newJ = new Joueur(element["id"], 2, element["avatar"]);
 
-						console.log(element["id"]);
+						if(element["alive"]){
+							var newJ = new Joueur(element["id"], 2, element["avatar"], element["etat"]);
 
-						newJ.position.x = element["positionX"];
-						newJ.position.z = element["positionZ"];
-						newJ.position.y = 1;
-						newJ.rotation.y = element["rotationY"];
-						newJ.etat = element["avatar"];
+							newJ.position.x = element["positionX"];
+							newJ.position.z = element["positionZ"];
+							newJ.position.y = 1;
+							newJ.rotation.y = element["rotationY"];
+							newJ.updateMesh();
 
-						Joueurs.push(newJ);
-						scene.add(newJ);
+							Joueurs.push(newJ);
+							scene.add(newJ);
+						}
 					}
 				}
 				render();
@@ -543,3 +558,63 @@ var rfrsh = setInterval(function () {
 		}
 	});
 }, 300);
+
+var tempsPartie = 80000;
+var tempsEcoule = 0;
+var timerPartieAff = setInterval(function(){
+	tempsEcoule += 1000;
+	if((tempsPartie-tempsEcoule)>=0){
+		var temps = (tempsPartie-tempsEcoule)/1000;
+		$("#chrono").text("Fin dans "+temps+" secondes");
+	}else{
+		$("#chrono").text("Partie terminée");
+	}
+}, 1000);
+
+var timerGong = setInterval(function(){
+	gong();
+
+	if(Joueurs[0].equipe == "keke"){
+		Joueurs[0].equipe = "badger";
+		Joueurs[0].etat = "badger";
+	}else{
+		Joueurs[0].equipe = "keke";
+		Joueurs[0].etat = "keke";
+	}
+
+	Joueurs[0].updateMesh();
+
+	$.ajax({
+		method: "POST",
+		url: "../ajax_php/ajax_gong.php",
+		data: {
+			id: IdJoueur,
+			idP: IdPartie,
+			equipe: Joueurs[0].equipe
+		},
+		dataType: "html"
+	});
+
+}, 15000);
+
+var timerPartie = setTimeout(function(){
+	timerGong = null;
+
+	var nbkeke = 0;
+	var nb = 0;
+
+	Joueurs.forEach(function(elem){
+		if(elem.etat=="keke"){
+			nbkeke++;
+		}
+		nb++
+	});
+
+	$("#container").empty();
+	if(nbkeke*2>=nb){
+		$("#container").append("<br/><br/><br/><h1 align='center'>Les kekes ont gagnés.</h1>");
+	}else{
+		$("#container").append("<br/><br/><br/><h1 align='center'>Les blaireaux ont gagnés.</h1>");
+	}
+}, tempsPartie);
+

@@ -41,7 +41,6 @@ $joueur = array(
     "avatar" => $avatar,
     "vision" => $vision,
     "vitesse" => $vitesse
-
 );
 
 array_push($data["Joueurs"], $joueur);
