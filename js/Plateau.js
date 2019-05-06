@@ -1,4 +1,5 @@
-function arena() {
+var plateau;
+	function arena() {
 	var halfSize = taillePlateau / 2;
 	var value = 1;
 	var texture = new THREE.TextureLoader().load('../img/door.jpg');
@@ -85,7 +86,7 @@ var Joueurs = [];
 
 function boarding(idPartie, equipe, numEquipe) {
 
-	var plateau = [
+	 plateau = [
 		[1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1],
 		[1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0, 1, 0, 0, 0, 1],
 		[1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1],
@@ -209,7 +210,7 @@ function boarding(idPartie, equipe, numEquipe) {
 					break;
 
 				case 11:
-					new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Flaque");
+					flaques.push(new Pedestal(Math.floor((j - largeurPlateau / 2)) + 1, Math.floor((i - largeurPlateau / 2)) + 1, "", "Flaque"));
 					break;
 
 			}

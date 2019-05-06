@@ -43,6 +43,8 @@ var renderer;
 var sky;
 
 //fonctions
+
+var flaques = [];
 //appel des fonctions
 var facteur = 1;
 var nombreJoueur = 1;
@@ -76,7 +78,7 @@ function init() {
 			nomLobby: IdPartie
 		},
 		dataType: "html",
-		success: function(infoJoueur){
+		success: function (infoJoueur) {
 			role = JSON.parse(infoJoueur);
 			equipe = role[0];
 			numEquipe = role[1];
@@ -94,7 +96,9 @@ function init() {
 		method: "POST",
 		url: "../ajax_php/ajax_createMap.php",
 		async: false,
-		data: {idP: IdPartie},
+		data: {
+			idP: IdPartie
+		},
 		dataType: "html"
 	});
 
@@ -133,7 +137,7 @@ function init() {
 			break;
 		}
 	}
-	mainCamera = new THREE.PerspectiveCamera(75, window.innerWidth / (window.innerHeight-48), 0.01, 200);
+	mainCamera = new THREE.PerspectiveCamera(75, window.innerWidth / (window.innerHeight - 48), 0.01, 200);
 	mainCamera.position.x = Joueurs[crtJoueur].position.x;
 	mainCamera.position.y = Joueurs[crtJoueur].position.y + 1.2;
 	mainCamera.position.z = Joueurs[crtJoueur].position.z;
@@ -146,7 +150,7 @@ function init() {
 
 	//parametrage de la camera du haut
 	var temp = 40;
-	topCamera = new THREE.OrthographicCamera(window.innerWidth / -temp, window.innerWidth / temp, (window.innerHeight-48) / temp, (window.innerHeight-48) / -temp, 1, 100);
+	topCamera = new THREE.OrthographicCamera(window.innerWidth / -temp, window.innerWidth / temp, (window.innerHeight - 48) / temp, (window.innerHeight - 48) / -temp, 1, 100);
 	topCamera.position.y = 50;
 	topCamera.position.x = 0;
 	topCamera.position.z = 0;
@@ -178,7 +182,7 @@ function init() {
 
 	renderer.setClearColor(scene.fog.color);
 	renderer.setPixelRatio(window.devicePixelRatio);
-	renderer.setSize(window.innerWidth, (window.innerHeight-48));
+	renderer.setSize(window.innerWidth, (window.innerHeight - 48));
 
 	//assignation au contenaire de la page html
 	var container = document.getElementById('container');
@@ -203,6 +207,16 @@ function init() {
 	// wireframe.position.set(-2, 2, -8);
 	// scene.add(wireframe);
 
+}
+
+function depFlaque() {
+	var rnd = Math.floor(Math.random() * flaques.length);
+	console.log(flaques[rnd]);console.log(rnd);
+	Joueurs[crtJoueur].position.x = flaques[rnd].children[0].position.x;
+	Joueurs[crtJoueur].position.z = flaques[rnd].children[0].position.z;
+	mainCamera.position.x = Joueurs[crtJoueur].position.x;
+	mainCamera.position.z = Joueurs[crtJoueur].position.z;
+	mainCamera.rotation.y = Joueurs[crtJoueur].rotation.y;
 }
 
 function clearPath() {
@@ -253,25 +267,25 @@ function touchePressee(event) {
 	}
 	if (keyboard[37]) { ///q
 		if (topCameraflag == false) {
-			Joueurs[crtJoueur].rotation.y +=(Math.PI /2) ;
+			Joueurs[crtJoueur].rotation.y += (Math.PI / 2);
 			Joueurs[crtJoueur].rotation.y.toFixed(2);
-			Joueurs[crtJoueur].rotation.y %= (Math.PI*2);
+			Joueurs[crtJoueur].rotation.y %= (Math.PI * 2);
 			mainCamera.rotation.y = Joueurs[crtJoueur].rotation.y;
 		}
 		requestDeplacement();
-		console.debug('ArrowLeft');
+		//console.debug('ArrowLeft');
 	}
 
 	if (keyboard[39]) { ///d
 		if (topCameraflag == false) {
-			Joueurs[crtJoueur].rotation.y -= (Math.PI / 2) ;
-			Joueurs[crtJoueur].rotation.y %= (Math.PI*2);
+			Joueurs[crtJoueur].rotation.y -= (Math.PI / 2);
+			Joueurs[crtJoueur].rotation.y %= (Math.PI * 2);
 			Joueurs[crtJoueur].rotation.y.toFixed(2);
 			mainCamera.rotation.y = Joueurs[crtJoueur].rotation.y
 
 		}
 		requestDeplacement();
-		console.debug('ArrowRight');
+		//console.debug('ArrowRight');
 	}
 	if (keyboard[38]) { ///z
 		var time = Date.now();
@@ -291,8 +305,14 @@ function touchePressee(event) {
 					Joueurs[crtJoueur].position.z -= Math.cos(Joueurs[crtJoueur].rotation.y) * 1;
 					
 				}*/
+
+				console.log(map(Joueurs[crtJoueur].position.z,-15,15,0,30)+" "+ map(Joueurs[crtJoueur].position.x,-15,15,0,30));
+				console.log(plateau[map(Joueurs[crtJoueur].position.z,-15,15,0,30)][map(Joueurs[crtJoueur].position.x,-15,15,0,30)]);
+		if (plateau[map(Joueurs[crtJoueur].position.z,-15,15,0,30)][map(Joueurs[crtJoueur].position.x,-15,15,0,30)] == 11) {
+			depFlaque();
+		}
 		requestDeplacement();
-		console.debug('ArrowUp');
+		//console.debug('ArrowUp');
 
 	}
 	if (keyboard[40]) { ///Fleche du bas
@@ -305,13 +325,13 @@ function touchePressee(event) {
 					Joueurs[crtJoueur].position.z += Math.cos(Joueurs[crtJoueur].rotation.y) * 1;	
 				}*/
 		requestDeplacement();
-		console.debug('ArrowDown');
+		//console.debug('ArrowDown');
 
 	}
 	if (keyboard[72]) { ///h
 		if (!topCameraflag) {
 			topCameraflag = true;
-			console.debug('H');
+			console.debug('TopView');
 		}
 	}
 	if (keyboard[89]) { ///y
@@ -364,19 +384,19 @@ function generateLights() {
 //ajustement de l'image en fonction de la taille de la fenetre
 function onWindowResize() {
 	if (!topCameraflag) {
-		mainCamera.aspect = window.innerWidth / (window.innerHeight-48);
+		mainCamera.aspect = window.innerWidth / (window.innerHeight - 48);
 		mainCamera.updateProjectionMatrix();
 	} else {
 		//topCamera.aspect = window.innerWidth / window.innerHeight;
 		var temp = 40;
-		topCamera = new THREE.OrthographicCamera(window.innerWidth / -temp, window.innerWidth / temp,(window.innerHeight-48) / temp, (window.innerHeight-48) / -temp, 1, 100);
+		topCamera = new THREE.OrthographicCamera(window.innerWidth / -temp, window.innerWidth / temp, (window.innerHeight - 48) / temp, (window.innerHeight - 48) / -temp, 1, 100);
 		topCamera.position.y = 50;
 		topCamera.position.x = 0;
 		topCamera.position.z = 0;
 		topCamera.rotation.x = degreesToRadians(-90);
 		topCamera.updateProjectionMatrix();
 	}
-	renderer.setSize(window.innerWidth, (window.innerHeight-48));
+	renderer.setSize(window.innerWidth, (window.innerHeight - 48));
 
 }
 
@@ -505,12 +525,12 @@ var rfrsh = setInterval(function () {
 			var indFind = -1;
 			data = data["Joueurs"];
 
-			console.log(data);
+			//console.log(data);
 
 			data.forEach(function (element) {
 				if (element["id"] == IdJoueur) {
-					$("#team").text(" ["+element["etat"]+"]");
-					if(!element["alive"]){
+					$("#team").text(" [" + element["etat"] + "]");
+					if (!element["alive"]) {
 						document.removeEventListener('keydown', touchePressee);
 						document.removeEventListener('keyup', toucheRelache);
 						topCameraflag = true;
@@ -525,21 +545,21 @@ var rfrsh = setInterval(function () {
 
 					if (indFind >= 0) {
 						var _player = Joueurs[indFind];
-						if(element["alive"]){
+						if (element["alive"]) {
 							_player.position.x = element["positionX"];
 							_player.position.z = element["positionZ"];
 							_player.rotation.y = parseFloat(element["rotationY"]);
 							_player.etat = element["avatar"];
 							_player.equipe = element["etat"];
 							_player.updateMesh();
-						}else{
+						} else {
 							scene.remove(_player);
 							var indexRem = Joueurs.indexOf(_player);
 							Joueurs.splice(indexRem, 1);
 						}
 					} else {
 
-						if(element["alive"]){
+						if (element["alive"]) {
 							var newJ = new Joueur(element["id"], 2, element["avatar"], element["etat"]);
 
 							newJ.position.x = element["positionX"];
@@ -561,23 +581,23 @@ var rfrsh = setInterval(function () {
 
 var tempsPartie = 80000;
 var tempsEcoule = 0;
-var timerPartieAff = setInterval(function(){
+var timerPartieAff = setInterval(function () {
 	tempsEcoule += 1000;
-	if((tempsPartie-tempsEcoule)>=0){
-		var temps = (tempsPartie-tempsEcoule)/1000;
-		$("#chrono").text("Fin dans "+temps+" secondes");
-	}else{
+	if ((tempsPartie - tempsEcoule) >= 0) {
+		var temps = (tempsPartie - tempsEcoule) / 1000;
+		$("#chrono").text("Fin dans " + temps + " secondes");
+	} else {
 		$("#chrono").text("Partie terminée");
 	}
 }, 1000);
 
-var timerGong = setInterval(function(){
+var timerGong = setInterval(function () {
 	gong();
 
-	if(Joueurs[0].equipe == "keke"){
+	if (Joueurs[0].equipe == "keke") {
 		Joueurs[0].equipe = "badger";
 		Joueurs[0].etat = "badger";
-	}else{
+	} else {
 		Joueurs[0].equipe = "keke";
 		Joueurs[0].etat = "keke";
 	}
@@ -597,24 +617,23 @@ var timerGong = setInterval(function(){
 
 }, 15000);
 
-var timerPartie = setTimeout(function(){
+var timerPartie = setTimeout(function () {
 	timerGong = null;
 
 	var nbkeke = 0;
 	var nb = 0;
 
-	Joueurs.forEach(function(elem){
-		if(elem.etat=="keke"){
+	Joueurs.forEach(function (elem) {
+		if (elem.etat == "keke") {
 			nbkeke++;
 		}
 		nb++
 	});
 
 	$("#container").empty();
-	if(nbkeke*2>=nb){
+	if (nbkeke * 2 >= nb) {
 		$("#container").append("<br/><br/><br/><h1 align='center'>Les kekes ont gagnés.</h1>");
-	}else{
+	} else {
 		$("#container").append("<br/><br/><br/><h1 align='center'>Les blaireaux ont gagnés.</h1>");
 	}
 }, tempsPartie);
-

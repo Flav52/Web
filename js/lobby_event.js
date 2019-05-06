@@ -13,7 +13,7 @@ function checkGame(){
 
                 var arrayJ = JSON.parse(output);
                 arrayJ = arrayJ["Joueurs"];
-                console.log(arrayJ);
+               // console.log(arrayJ);
 
                 arrayJ.forEach(function(elem){
                     find=0;
