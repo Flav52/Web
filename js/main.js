@@ -250,7 +250,9 @@ function touchePressee(event) {
 	}
 	if (keyboard[37]) { ///q
 		if (topCameraflag == false) {
-			Joueurs[crtJoueur].rotation.y +=Math.PI /2;
+			Joueurs[crtJoueur].rotation.y +=(Math.PI /2) ;
+			Joueurs[crtJoueur].rotation.y.toFixed(2);
+			Joueurs[crtJoueur].rotation.y %= (Math.PI*2);
 			mainCamera.rotation.y = Joueurs[crtJoueur].rotation.y;
 		}
 		requestDeplacement();
@@ -259,7 +261,9 @@ function touchePressee(event) {
 
 	if (keyboard[39]) { ///d
 		if (topCameraflag == false) {
-			Joueurs[crtJoueur].rotation.y -= Math.PI / 2;
+			Joueurs[crtJoueur].rotation.y -= (Math.PI / 2) ;
+			Joueurs[crtJoueur].rotation.y %= (Math.PI*2);
+			Joueurs[crtJoueur].rotation.y.toFixed(2);
 			mainCamera.rotation.y = Joueurs[crtJoueur].rotation.y
 
 		}
