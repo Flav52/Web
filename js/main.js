@@ -340,7 +340,7 @@ function touchePressee(event) {
 			console.debug('Y');
 		}
 	}
-	if (!keyboard[116] && !keyboard[123] && !keyboard[122]) {
+	if (!keyboard[123] && !keyboard[122]) {
 		event.preventDefault();
 	}
 
