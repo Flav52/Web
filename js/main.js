@@ -246,7 +246,9 @@ function touchePressee(event) {
 	}
 	if (keyboard[37]) { ///q
 		if (topCameraflag == false) {
-			Joueurs[crtJoueur].rotation.y +=Math.PI /2;
+			Joueurs[crtJoueur].rotation.y +=(Math.PI /2) ;
+			Joueurs[crtJoueur].rotation.y.toFixed(2);
+			Joueurs[crtJoueur].rotation.y %= (Math.PI*2);
 			mainCamera.rotation.y = Joueurs[crtJoueur].rotation.y;
 		}
 		requestDeplacement();
@@ -255,7 +257,9 @@ function touchePressee(event) {
 
 	if (keyboard[39]) { ///d
 		if (topCameraflag == false) {
-			Joueurs[crtJoueur].rotation.y -= Math.PI / 2;
+			Joueurs[crtJoueur].rotation.y -= (Math.PI / 2) ;
+			Joueurs[crtJoueur].rotation.y %= (Math.PI*2);
+			Joueurs[crtJoueur].rotation.y.toFixed(2);
 			mainCamera.rotation.y = Joueurs[crtJoueur].rotation.y
 
 		}
@@ -508,7 +512,7 @@ var rfrsh = setInterval(function () {
 						var _player = Joueurs[indFind];
 						_player.position.x = element["positionX"];
 						_player.position.z = element["positionZ"];
-						_player.rotation.y = parseInt(element["rotationY"]);
+						_player.rotation.y = parseFloat(element["rotationY"]);
 						console.log("find");
 					} else {
 						var newJ = new Joueur(element["id"], 2, element["avatar"]);
